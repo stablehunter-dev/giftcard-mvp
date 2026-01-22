@@ -237,7 +237,7 @@ export default function ActivatePage() {
                                     )}
                                     {!error && !isProcessingImage && (
                                         <p className="mt-2 sm:mt-3 text-xs sm:text-sm text-gray-500">
-                                            兌換碼為16位字符（如：4J3N-50XZ-YH8R-JTJ6），可在禮品卡背面找到，也可點擊相機圖標拍照識別
+                                            兌換碼為16位字符，可在禮品卡背面找到，也可點擊相機圖標拍照識別
                                         </p>
                                     )}
                                 </div>
@@ -494,8 +494,7 @@ export default function ActivatePage() {
                                 綁定成功！
                             </h3>
                             <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8">
-                                您的禮品卡已成功綁定至帳戶。<br />
-                                現在可以前往門店預約兌換黃金。
+                                您的禮品卡已成功綁定至帳戶。
                             </p>
                             <button
                                 onClick={() => setShowSuccessModal(false)}
