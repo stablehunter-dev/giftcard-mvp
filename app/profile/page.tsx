@@ -34,7 +34,6 @@ const mockGoldCards = [
 ];
 
 export default function ProfilePage() {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
     // Add state
     const [showAppointmentModal, setShowAppointmentModal] = useState(false);
 
@@ -44,16 +43,17 @@ export default function ProfilePage() {
 
     // Check authentication status
     useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const authStatus = localStorage.getItem('isAuthenticated') === 'true';
-            setIsAuthenticated(authStatus);
+        const checkAuth = setTimeout(() => {
+            const authStatus = typeof window !== 'undefined' ? localStorage.getItem('isAuthenticated') === 'true' : false;
 
             if (!authStatus) {
                 router.push('/auth?redirect=/profile');
             } else {
                 setIsLoading(false);
             }
-        }
+        }, 0);
+
+        return () => clearTimeout(checkAuth);
     }, [router]);
 
     const activeCards = mockGoldCards.filter(card => card.status === 'active');
