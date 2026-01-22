@@ -30,7 +30,7 @@ export default function ScanLandingPage() {
           {/* Hero Section */}
           <div className="text-center mb-12 sm:mb-16 pt-6 sm:pt-8">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-gray-900 mb-4 sm:mb-6">
-              歡迎使用 Goldfin
+              歡迎使用 GoldFin
               <br />
               禮品卡兌換服務
             </h1>
@@ -212,7 +212,7 @@ export default function ScanLandingPage() {
               <ul className="space-y-2 sm:space-y-3 text-sm sm:text-base text-gray-700">
                 <li className="flex items-start gap-2 sm:gap-3">
                   <span className="text-amber-600 mt-1">•</span>
-                  <span>禮品卡綁定後即失效，權益將記入您的 Goldfin 帳戶，不可轉讓</span>
+                  <span>禮品卡綁定後即失效，權益將記入您的 GoldFin 帳戶，不可轉讓</span>
                 </li>
                 <li className="flex items-start gap-2 sm:gap-3">
                   <span className="text-amber-600 mt-1">•</span>
@@ -238,7 +238,7 @@ export default function ScanLandingPage() {
               </h2>
               <div className="text-xs sm:text-sm text-gray-600 space-y-2 sm:space-y-3 leading-relaxed">
                 <p>
-                  使用 Goldfin 禮品卡兌換服務即表示您同意以下條款：
+                  使用 GoldFin 禮品卡兌換服務即表示您同意以下條款：
                 </p>
                 <ul className="space-y-1.5 sm:space-y-2 ml-3 sm:ml-4">
                   <li className="flex items-start gap-2">
@@ -251,19 +251,19 @@ export default function ScanLandingPage() {
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="mt-1.5 w-1 h-1 bg-gray-400 rounded-full flex-shrink-0"></span>
-                    <span>最終交付的黃金規格與數量以門店實際庫存為準，Goldfin 保留最終解釋權</span>
+                    <span>最終交付的黃金規格與數量以門店實際庫存為準，GoldFin 保留最終解釋權</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="mt-1.5 w-1 h-1 bg-gray-400 rounded-full flex-shrink-0"></span>
-                    <span>用戶需妥善保管帳戶資訊及兌換二維碼，如因用戶個人原因導致的損失，Goldfin 概不負責</span>
+                    <span>用戶需妥善保管帳戶資訊及兌換二維碼，如因用戶個人原因導致的損失，GoldFin 概不負責</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="mt-1.5 w-1 h-1 bg-gray-400 rounded-full flex-shrink-0"></span>
-                    <span>Goldfin 保留隨時修改服務條款的權利</span>
+                    <span>GoldFin 保留隨時修改服務條款的權利</span>
                   </li>
                 </ul>
                 <p className="text-xs text-gray-500 pt-3 sm:pt-4 border-t border-gray-200 mt-4">
-                  © 2026 Goldfin. 版權所有 | 服務僅適用於香港地區
+                  © 2026 GoldFin. 版權所有 | 服務僅適用於香港地區
                 </p>
               </div>
             </div>

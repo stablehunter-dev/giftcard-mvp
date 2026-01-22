@@ -126,7 +126,7 @@ export default function AuthPage() {
                     {/* Hero Section */}
                     <div className="text-center mb-8 sm:mb-12 pt-6 sm:pt-8">
                         <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-gray-900 mb-3 sm:mb-4">
-                            歡迎使用 Goldfin
+                            歡迎使用 GoldFin
                         </h1>
                         <p className="text-base sm:text-lg text-gray-600 font-light">
                             {codeSent ? '請查收郵箱中的驗證碼' : '使用郵箱驗證碼登入或註冊'}

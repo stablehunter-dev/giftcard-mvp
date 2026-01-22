@@ -102,112 +102,120 @@ export default function ProfilePage() {
 
             {/* Main Content */}
             <main className="pt-16 sm:pt-20 pb-28 px-4 sm:px-6">
-                <div className="max-w-3xl mx-auto">
-                    {/* Large Tether Gold Card - Total Balance */}
-                    <div
-                        className="relative overflow-hidden rounded-3xl shadow-2xl mb-8 sm:mb-10"
-                        style={{
-                            background: 'linear-gradient(135deg, #F4D03F 0%, #E9C46A 50%, #D4AF37 100%)',
-                            aspectRatio: '1.586',
-                            maxHeight: '320px'
-                        }}
-                    >
-                        <div className="relative h-full p-6 sm:p-8 flex flex-col items-center justify-center">
-                            {/* Center Section - Amount is King */}
-                            <div className="flex-1 flex flex-col items-center justify-center mt-4">
-                                <div className="flex items-baseline gap-2 translate-x-2">
-                                    <span className="text-8xl sm:text-9xl font-bold text-amber-900 tracking-tighter drop-shadow-sm filter">
-                                        {totalAmount}
-                                    </span>
-                                    <span className="text-3xl sm:text-4xl font-medium text-amber-900/80 mb-4 sm:mb-6">g</span>
-                                </div>
-                                <div className="text-sm sm:text-base font-medium text-amber-900/40 tracking-[0.3em] uppercase mt-2">
-                                    黃金總額
-                                </div>
-                            </div>
-
-                            {/* Bottom Right - Powered by Tether Gold */}
-                            <div className="absolute bottom-5 right-6 sm:bottom-6 sm:right-8 flex flex-col items-end">
-                                <span className="text-[10px] sm:text-xs font-medium text-amber-900/40 uppercase tracking-wider mb-1.5">
-                                    Powered by
-                                </span>
-                                <div className="bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-lg shadow-sm border border-white/50">
-                                    <Image
-                                        src="/images/tether-gold-logo.png"
-                                        alt="Tether Gold"
-                                        width={80}
-                                        height={24}
-                                        className="object-contain opacity-90"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Tab Section */}
-                    <div className="flex items-center gap-3 mb-6">
-                        <button
-                            onClick={() => setActiveTab('active')}
-                            className={`px-5 py-2.5 text-sm sm:text-base font-medium rounded-full transition-all ${activeTab === 'active'
-                                ? 'bg-gray-900 text-white shadow-md'
-                                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                                }`}
-                        >
-                            可用 ({activeCards.length})
-                        </button>
-                        <button
-                            onClick={() => setActiveTab('inactive')}
-                            className={`px-5 py-2.5 text-sm sm:text-base font-medium rounded-full transition-all ${activeTab === 'inactive'
-                                ? 'bg-gray-900 text-white shadow-md'
-                                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                                }`}
-                        >
-                            已使用 ({inactiveCards.length})
-                        </button>
-                    </div>
-
-                    {/* Card List */}
-                    <div className="space-y-4">
-                        {displayCards.length === 0 ? (
-                            <div className="text-center py-16 bg-gray-50 rounded-3xl border border-gray-100">
-                                <div className="text-7xl mb-4 opacity-50">📇</div>
-                                <p className="text-gray-500 text-lg">暂无{activeTab === 'active' ? '可用' : '已使用'}的记录</p>
-                            </div>
-                        ) : (
-                            displayCards.map((card) => (
-                                <div
-                                    key={card.id}
-                                    className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow group"
-                                >
-                                    <div className="flex items-center justify-between">
-                                        {/* Left: Date and Serial */}
-                                        <div className="flex-1">
-                                            <div className="flex items-center gap-2 mb-2">
-                                                <span className="text-sm text-gray-500">{card.bindDate}</span>
-                                                {card.status === 'inactive' && (
-                                                    <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-md font-medium">已使用</span>
-                                                )}
-                                            </div>
-                                            <div className="text-base sm:text-lg font-mono text-gray-900 tracking-wide font-medium group-hover:text-yellow-600 transition-colors">
-                                                {card.serialNumber}
-                                            </div>
+                <div className="max-w-6xl mx-auto">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                        {/* Left Column: Gold Card (Sticky on Desktop) */}
+                        <div className="lg:col-span-5 lg:sticky lg:top-24">
+                            {/* Large Tether Gold Card - Total Balance */}
+                            <div
+                                className="relative overflow-hidden rounded-3xl shadow-2xl mb-8 sm:mb-10 lg:mb-0"
+                                style={{
+                                    background: 'linear-gradient(135deg, #F4D03F 0%, #E9C46A 50%, #D4AF37 100%)',
+                                    aspectRatio: '1.586',
+                                    width: '100%'
+                                }}
+                            >
+                                <div className="relative h-full p-6 sm:p-8 flex flex-col items-center justify-center">
+                                    {/* Center Section - Amount is King */}
+                                    <div className="flex-1 flex flex-col items-center justify-center mt-4">
+                                        <div className="flex items-baseline gap-2 translate-x-2">
+                                            <span className="text-8xl sm:text-9xl font-bold text-amber-900 tracking-tighter drop-shadow-sm filter">
+                                                {totalAmount}
+                                            </span>
+                                            <span className="text-3xl sm:text-4xl font-medium text-amber-900/80 mb-4 sm:mb-6">g</span>
                                         </div>
+                                        <div className="text-sm sm:text-base font-medium text-amber-900/40 tracking-[0.3em] uppercase mt-2">
+                                            黃金總額
+                                        </div>
+                                    </div>
 
-                                        {/* Right: Amount */}
-                                        <div className="text-right">
-                                            <div className="flex items-baseline gap-1.5">
-                                                <span className={`text-2xl sm:text-3xl font-bold ${card.status === 'active' ? 'text-gray-900' : 'text-gray-400'}`}>
-                                                    {card.amount}
-                                                </span>
-                                                <span className={`text-sm sm:text-base font-medium ${card.status === 'active' ? 'text-gray-500' : 'text-gray-400'}`}>
-                                                    g
-                                                </span>
-                                            </div>
+                                    {/* Bottom Right - Powered by Tether Gold */}
+                                    <div className="absolute bottom-5 right-6 sm:bottom-6 sm:right-8 flex flex-col items-end">
+                                        <span className="text-[10px] sm:text-xs font-medium text-amber-900/40 uppercase tracking-wider mb-1.5">
+                                            Powered by
+                                        </span>
+                                        <div className="bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-lg shadow-sm border border-white/50">
+                                            <Image
+                                                src="/images/tether-gold-logo.png"
+                                                alt="Tether Gold"
+                                                width={80}
+                                                height={24}
+                                                className="object-contain opacity-90"
+                                            />
                                         </div>
                                     </div>
                                 </div>
-                            ))
-                        )}
+                            </div>
+                        </div>
+
+                        {/* Right Column: History and Tabs */}
+                        <div className="lg:col-span-7 space-y-6">
+                            {/* Tab Section */}
+                            <div className="flex items-center gap-3">
+                                <button
+                                    onClick={() => setActiveTab('active')}
+                                    className={`px-5 py-2.5 text-sm sm:text-base font-medium rounded-full transition-all ${activeTab === 'active'
+                                        ? 'bg-gray-900 text-white shadow-md'
+                                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                        }`}
+                                >
+                                    可用 ({activeCards.length})
+                                </button>
+                                <button
+                                    onClick={() => setActiveTab('inactive')}
+                                    className={`px-5 py-2.5 text-sm sm:text-base font-medium rounded-full transition-all ${activeTab === 'inactive'
+                                        ? 'bg-gray-900 text-white shadow-md'
+                                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                        }`}
+                                >
+                                    已使用 ({inactiveCards.length})
+                                </button>
+                            </div>
+
+                            {/* Card List */}
+                            <div className="space-y-4">
+                                {displayCards.length === 0 ? (
+                                    <div className="text-center py-16 bg-gray-50 rounded-3xl border border-gray-100">
+                                        <div className="text-7xl mb-4 opacity-50">📇</div>
+                                        <p className="text-gray-500 text-lg">暂无{activeTab === 'active' ? '可用' : '已使用'}的记录</p>
+                                    </div>
+                                ) : (
+                                    displayCards.map((card) => (
+                                        <div
+                                            key={card.id}
+                                            className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow group"
+                                        >
+                                            <div className="flex items-center justify-between">
+                                                {/* Left: Date and Serial */}
+                                                <div className="flex-1">
+                                                    <div className="flex items-center gap-2 mb-2">
+                                                        <span className="text-sm text-gray-500">{card.bindDate}</span>
+                                                        {card.status === 'inactive' && (
+                                                            <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-md font-medium">已使用</span>
+                                                        )}
+                                                    </div>
+                                                    <div className="text-base sm:text-lg font-mono text-gray-900 tracking-wide font-medium group-hover:text-yellow-600 transition-colors">
+                                                        {card.serialNumber}
+                                                    </div>
+                                                </div>
+
+                                                {/* Right: Amount */}
+                                                <div className="text-right">
+                                                    <div className="flex items-baseline gap-1.5">
+                                                        <span className={`text-2xl sm:text-3xl font-bold ${card.status === 'active' ? 'text-gray-900' : 'text-gray-400'}`}>
+                                                            {card.amount}
+                                                        </span>
+                                                        <span className={`text-sm sm:text-base font-medium ${card.status === 'active' ? 'text-gray-500' : 'text-gray-400'}`}>
+                                                            g
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </main>

@@ -321,7 +321,7 @@ export default function ActivatePage() {
                                 </li>
                                 <li className="flex items-start gap-2 sm:gap-3">
                                     <span className="text-amber-600 mt-1">•</span>
-                                    <span>綁定後的權益將記入您的 Goldfin 帳戶，不可轉讓</span>
+                                    <span>綁定後的權益將記入您的 GoldFin 帳戶，不可轉讓</span>
                                 </li>
                                 <li className="flex items-start gap-2 sm:gap-3">
                                     <span className="text-amber-600 mt-1">•</span>
