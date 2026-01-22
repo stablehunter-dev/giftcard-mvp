@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function AuthPage() {
+function AuthContent() {
     const [email, setEmail] = useState('');
     const [verificationCode, setVerificationCode] = useState('');
     const [errors, setErrors] = useState<Record<string, string>>({});
@@ -320,5 +320,18 @@ export default function AuthPage() {
                 </span>
             </a>
         </div>
+    );
+}
+
+export default function AuthPage() {
+    return (
+        <Suspense fallback={<div className="min-h-screen bg-white flex items-center justify-center">
+            <div className="text-center">
+                <div className="w-8 h-8 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
+                <p className="text-gray-500 text-sm">Loading...</p>
+            </div>
+        </div>}>
+            <AuthContent />
+        </Suspense>
     );
 }
