@@ -315,7 +315,7 @@ export default function ActivatePage() {
                             <ul className="space-y-2 sm:space-y-3 text-sm sm:text-base text-gray-700">
                                 <li className="flex items-start gap-2 sm:gap-3">
                                     <span className="text-amber-600 mt-1">•</span>
-                                    <span>禮品卡綁定後即刻生效，實體卡片隨即失效，不可取消或退款</span>
+                                    <span>禮品卡綁定後即刻生效，實體卡片隨即失效，權益將記入您的 GoldFin 帳戶，不可取消、轉讓或退款</span>
                                 </li>
                                 <li className="flex items-start gap-2 sm:gap-3">
                                     <span className="text-amber-600 mt-1">•</span>
@@ -323,13 +323,56 @@ export default function ActivatePage() {
                                 </li>
                                 <li className="flex items-start gap-2 sm:gap-3">
                                     <span className="text-amber-600 mt-1">•</span>
-                                    <span>綁定後的權益將記入您的 GoldFin 帳戶，不可轉讓</span>
+                                    <span>只能在指定門店進行預約兌換，最終兌換以門店實際庫存為準</span>
+                                </li>
+                                <li className="flex items-start gap-2 sm:gap-3">
+                                    <span className="text-amber-600 mt-1">•</span>
+                                    <span>提交兌換申請後需等待平台確認，請留意電郵通知</span>
                                 </li>
                                 <li className="flex items-start gap-2 sm:gap-3">
                                     <span className="text-amber-600 mt-1">•</span>
                                     <span>如遇到任何問題，請點擊右下角 WhatsApp 圖標聯絡客服</span>
                                 </li>
                             </ul>
+                        </div>
+                    </section>
+
+                    {/* Disclaimer */}
+                    <section className="mb-8 sm:mb-12">
+                        <div className="bg-gray-50 rounded-2xl sm:rounded-3xl p-6 sm:p-8">
+                            <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 sm:mb-4">
+                                服務條款與免責聲明
+                            </h2>
+                            <div className="text-xs sm:text-sm text-gray-600 space-y-2 sm:space-y-3 leading-relaxed">
+                                <p>
+                                    使用 GoldFin 禮品卡兌換服務即表示您同意以下條款：
+                                </p>
+                                <ul className="space-y-1.5 sm:space-y-2 ml-3 sm:ml-4">
+                                    <li className="flex items-start gap-2">
+                                        <span className="mt-1.5 w-1 h-1 bg-gray-400 rounded-full flex-shrink-0"></span>
+                                        <span>禮品卡一經綁定即刻生效，實體卡片隨即失效，不可取消或退款</span>
+                                    </li>
+                                    <li className="flex items-start gap-2">
+                                        <span className="mt-1.5 w-1 h-1 bg-gray-400 rounded-full flex-shrink-0"></span>
+                                        <span>所有兌換需經平台確認，確認時間視實際情況而定</span>
+                                    </li>
+                                    <li className="flex items-start gap-2">
+                                        <span className="mt-1.5 w-1 h-1 bg-gray-400 rounded-full flex-shrink-0"></span>
+                                        <span>最終交付的黃金規格與數量以門店實際庫存為準，GoldFin 保留最終解釋權</span>
+                                    </li>
+                                    <li className="flex items-start gap-2">
+                                        <span className="mt-1.5 w-1 h-1 bg-gray-400 rounded-full flex-shrink-0"></span>
+                                        <span>用戶需妥善保管帳戶資訊及兌換二維碼，如因用戶個人原因導致的損失，GoldFin 概不負責</span>
+                                    </li>
+                                    <li className="flex items-start gap-2">
+                                        <span className="mt-1.5 w-1 h-1 bg-gray-400 rounded-full flex-shrink-0"></span>
+                                        <span>GoldFin 保留隨時修改服務條款的權利</span>
+                                    </li>
+                                </ul>
+                                <p className="text-xs text-gray-500 pt-3 sm:pt-4 border-t border-gray-200 mt-4">
+                                    © 2026 GoldFin. 版權所有 | 服務僅適用於香港地區
+                                </p>
+                            </div>
                         </div>
                     </section>
                 </div>

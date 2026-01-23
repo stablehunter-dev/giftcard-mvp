@@ -30,19 +30,19 @@ export default function ScanLandingPage() {
           {/* Hero Section */}
           <div className="text-center mb-12 sm:mb-16 pt-6 sm:pt-8">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-gray-900 mb-4 sm:mb-6">
-              歡迎使用 GoldFin
+              你的數字黃金
               <br />
-              禮品卡兌換服務
+              隨時握在手中
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl text-gray-600 font-light">
-              輕鬆綁定，安心兌換實體黃金
+              無需實名 · 全球兌換 · 靈活變現
             </p>
           </div>
 
-          {/* How it Works */}
+          {/* How to Start - 调整到第二位 */}
           <section className="mb-12 sm:mb-20">
             <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-6 sm:mb-8 text-center">
-              兌換流程
+              如何開始
             </h2>
             <div className="space-y-4 sm:space-y-6">
               <div className="flex items-start gap-4 sm:gap-6 p-4 sm:p-6 rounded-2xl bg-gray-50">
@@ -50,11 +50,11 @@ export default function ScanLandingPage() {
                   1
                 </div>
                 <div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1 sm:mb-2">
-                    綁定禮品卡
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1">
+                    註冊賬戶
                   </h3>
-                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                    使用您的兌換碼登入並綁定禮品卡至您的帳戶。綁定後，實體卡片即失效，所有權益將記入您的帳戶。
+                  <p className="text-sm sm:text-base text-gray-600">
+                    創建數字黃金賬戶
                   </p>
                 </div>
               </div>
@@ -64,11 +64,11 @@ export default function ScanLandingPage() {
                   2
                 </div>
                 <div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1 sm:mb-2">
-                    選擇門店並預約
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1">
+                    輸入卡密
                   </h3>
-                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                    選擇您方便的指定門店，填寫預期兌換的黃金規格與數量。最終兌換以門店實際庫存為準。
+                  <p className="text-sm sm:text-base text-gray-600">
+                    激活禮品卡至賬戶
                   </p>
                 </div>
               </div>
@@ -78,11 +78,11 @@ export default function ScanLandingPage() {
                   3
                 </div>
                 <div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1 sm:mb-2">
-                    等待確認通知
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1">
+                    選擇變現方式
                   </h3>
-                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                    我們將盡快確認您的預約，並透過電郵通知您最早到店時間與兌換二維碼。
+                  <p className="text-sm sm:text-base text-gray-600">
+                    實金 / XAUt / USDT
                   </p>
                 </div>
               </div>
@@ -92,11 +92,54 @@ export default function ScanLandingPage() {
                   4
                 </div>
                 <div>
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1">
+                    預約領取
+                  </h3>
+                  <p className="text-sm sm:text-base text-gray-600">
+                    到店或鏈上到賬
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Redemption Options */}
+          <section className="mb-12 sm:mb-20">
+            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-6 sm:mb-8 text-center">
+              兌換方式
+            </h2>
+            <div className="space-y-4 sm:space-y-6">
+              <div className="flex items-start gap-4 sm:gap-6 p-5 sm:p-6 rounded-2xl bg-gray-50">
+                <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center">
+                  <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                  </svg>
+                </div>
+                <div>
                   <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1 sm:mb-2">
-                    到店兌換實體黃金
+                    領取實物黃金
                   </h3>
                   <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                    憑二維碼到指定門店兌換。門店將根據實際庫存確認最終交付的規格與數量。
+                    <strong>100g 起預約</strong> → 到店領取
+                  </p>
+                  <p className="text-xs sm:text-sm text-gray-500 mt-2">
+                    首批支持香港，後續擴展至新加坡、迪拜 *
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4 sm:gap-6 p-5 sm:p-6 rounded-2xl bg-gray-50">
+                <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center">
+                  <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1 sm:mb-2">
+                    提取到個人錢包
+                  </h3>
+                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                    提取 XAUt 或兌換為 USDT 至錢包地址
                   </p>
                 </div>
               </div>
@@ -110,12 +153,11 @@ export default function ScanLandingPage() {
             </h2>
             <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl sm:rounded-3xl p-8 sm:p-12 border border-gray-100">
               <p className="text-center text-sm sm:text-base text-gray-600 mb-8 sm:mb-10">
-                我們與優質合作伙伴攜手，為您提供安全可靠的實物黃金兌換服務
+                攜手優質合作伙伴，提供安全可靠的黃金兌換服務
               </p>
 
-              {/* Partner Logos - Horizontal Display */}
+              {/* Partner Logos */}
               <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 md:gap-12">
-                {/* Point Gold Logo */}
                 <div className="bg-white rounded-xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow border border-gray-100 min-w-[160px] sm:min-w-[200px]">
                   <div className="text-center">
                     <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-yellow-600 to-yellow-800 bg-clip-text text-transparent">
@@ -124,7 +166,6 @@ export default function ScanLandingPage() {
                   </div>
                 </div>
 
-                {/* Tether Gold Logo */}
                 <div className="bg-white rounded-xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow border border-gray-100 min-w-[160px] sm:min-w-[200px]">
                   <div className="flex items-center justify-center">
                     <Image
@@ -137,38 +178,69 @@ export default function ScanLandingPage() {
                   </div>
                 </div>
               </div>
+            </div>
+          </section>
 
-              <div className="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-gray-200">
-                <p className="text-xs sm:text-sm text-center text-gray-500">
-                  詳細兌換點資訊請登入後於預約頁面查看
+          {/* Value Propositions - 调整到后面 */}
+          <section className="mb-12 sm:mb-20">
+            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-6 sm:mb-8 text-center">
+              為什麼選擇數字黃金禮品卡
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+              {/* Anonymity */}
+              <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-amber-50 to-yellow-50 border border-amber-100">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center mb-4">
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                </div>
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
+                  免實名持有
+                </h3>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                  無需 KYC，卡密即所有權
+                </p>
+              </div>
+
+              {/* Crypto Purchase */}
+              <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-amber-50 to-yellow-50 border border-amber-100">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center mb-4">
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
+                  加密貨幣購買 *
+                </h3>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                  支持多種數字貨幣
+                </p>
+              </div>
+
+              {/* Flexible Redemption */}
+              <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-amber-50 to-yellow-50 border border-amber-100">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center mb-4">
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                  </svg>
+                </div>
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
+                  靈活兌換
+                </h3>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                  實金、XAUt 或 USDT 任選
                 </p>
               </div>
             </div>
           </section>
 
-          {/* Supported Stores - Login Required */}
-          <section className="mb-12 sm:mb-20">
-            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-6 sm:mb-8 text-center">
-              兌換地點
-            </h2>
+          {/* CTA Section */}
+          <section className="mb-12 sm:mb-16">
             <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-2xl sm:rounded-3xl p-8 sm:p-12 border border-amber-100">
               <div className="text-center max-w-2xl mx-auto">
-                {/* Icon */}
-                <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full shadow-sm mb-6">
-                  <svg className="w-8 h-8 sm:w-10 sm:h-10 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                </div>
-
-                {/* Content */}
-                <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 sm:mb-4">
-                  綁定後查看詳情
+                <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6">
+                  立即開始
                 </h3>
-                <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8 leading-relaxed">
-                  兌換點的詳細地址、營業時間及預約資訊<br className="hidden sm:block" />
-                  將在您綁定禮品卡並登入後於預約頁面顯示。
-                </p>
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
@@ -192,82 +264,14 @@ export default function ScanLandingPage() {
                   </Link>
                 </div>
 
-                {/* Additional Info */}
-                <p className="text-xs sm:text-sm text-gray-500 mt-6 sm:mt-8">
-                  已綁定禮品卡？登入後即可查看兌換點資訊並進行預約
+                {/* Footnote */}
+                <p className="text-xs sm:text-sm text-gray-500 mt-8 sm:mt-10">
+                  * 標記功能即將開放，敬請期待
                 </p>
               </div>
             </div>
           </section>
 
-          {/* Important Notice */}
-          <section className="mb-12 sm:mb-16">
-            <div className="bg-amber-50 border border-amber-200 rounded-2xl sm:rounded-3xl p-6 sm:p-8">
-              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 sm:mb-4 flex items-center gap-2 sm:gap-3">
-                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                </svg>
-                重要提示
-              </h2>
-              <ul className="space-y-2 sm:space-y-3 text-sm sm:text-base text-gray-700">
-                <li className="flex items-start gap-2 sm:gap-3">
-                  <span className="text-amber-600 mt-1">•</span>
-                  <span>禮品卡綁定後即失效，權益將記入您的 GoldFin 帳戶，不可轉讓</span>
-                </li>
-                <li className="flex items-start gap-2 sm:gap-3">
-                  <span className="text-amber-600 mt-1">•</span>
-                  <span>只能在上述指定門店進行預約兌換，其他地點不適用</span>
-                </li>
-                <li className="flex items-start gap-2 sm:gap-3">
-                  <span className="text-amber-600 mt-1">•</span>
-                  <span>預約時填寫的規格與數量為您的意向，最終兌換以門店實際庫存為準</span>
-                </li>
-                <li className="flex items-start gap-2 sm:gap-3">
-                  <span className="text-amber-600 mt-1">•</span>
-                  <span>需等待平台確認後方可到店，請留意電郵通知</span>
-                </li>
-              </ul>
-            </div>
-          </section>
-
-          {/* Disclaimer */}
-          <section className="mb-8 sm:mb-12">
-            <div className="bg-gray-50 rounded-2xl sm:rounded-3xl p-6 sm:p-8">
-              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 sm:mb-4">
-                服務條款與免責聲明
-              </h2>
-              <div className="text-xs sm:text-sm text-gray-600 space-y-2 sm:space-y-3 leading-relaxed">
-                <p>
-                  使用 GoldFin 禮品卡兌換服務即表示您同意以下條款：
-                </p>
-                <ul className="space-y-1.5 sm:space-y-2 ml-3 sm:ml-4">
-                  <li className="flex items-start gap-2">
-                    <span className="mt-1.5 w-1 h-1 bg-gray-400 rounded-full flex-shrink-0"></span>
-                    <span>禮品卡一經綁定即刻生效，實體卡片隨即失效，不可取消或退款</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="mt-1.5 w-1 h-1 bg-gray-400 rounded-full flex-shrink-0"></span>
-                    <span>所有兌換需經平台確認，確認時間視實際情況而定</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="mt-1.5 w-1 h-1 bg-gray-400 rounded-full flex-shrink-0"></span>
-                    <span>最終交付的黃金規格與數量以門店實際庫存為準，GoldFin 保留最終解釋權</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="mt-1.5 w-1 h-1 bg-gray-400 rounded-full flex-shrink-0"></span>
-                    <span>用戶需妥善保管帳戶資訊及兌換二維碼，如因用戶個人原因導致的損失，GoldFin 概不負責</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="mt-1.5 w-1 h-1 bg-gray-400 rounded-full flex-shrink-0"></span>
-                    <span>GoldFin 保留隨時修改服務條款的權利</span>
-                  </li>
-                </ul>
-                <p className="text-xs text-gray-500 pt-3 sm:pt-4 border-t border-gray-200 mt-4">
-                  © 2026 GoldFin. 版權所有 | 服務僅適用於香港地區
-                </p>
-              </div>
-            </div>
-          </section>
         </div>
       </main>
 
@@ -289,4 +293,3 @@ export default function ScanLandingPage() {
     </div>
   );
 }
-
