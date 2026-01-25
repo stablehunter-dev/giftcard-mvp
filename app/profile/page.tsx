@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -33,7 +33,7 @@ const mockGoldCards = [
     },
 ];
 
-export default function ProfilePage() {
+function ProfileContent() {
     // Add state
     const [showAppointmentModal, setShowAppointmentModal] = useState(false);
     const [showRedeemSelectionModal, setShowRedeemSelectionModal] = useState(false);
@@ -625,3 +625,18 @@ export default function ProfilePage() {
     );
 }
 
+
+export default function ProfilePage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen bg-white flex items-center justify-center">
+                <div className="text-center">
+                    <div className="w-12 h-12 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <p className="text-gray-600">載入中...</p>
+                </div>
+            </div>
+        }>
+            <ProfileContent />
+        </Suspense>
+    );
+}
