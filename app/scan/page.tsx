@@ -39,10 +39,78 @@ export default function ScanLandingPage() {
             </p>
           </div>
 
-          {/* How to Start - 调整到第二位 */}
+          {/* 认识你的礼品卡 - 放在最前面 */}
+          <section className="mb-12 sm:mb-20">
+            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-3 sm:mb-4 text-center">
+              認識你的禮品卡
+            </h2>
+            <p className="text-center text-sm sm:text-base text-gray-500 mb-6 sm:mb-8 max-w-xl mx-auto">
+              了解這張卡能為你帶來什麼
+            </p>
+
+            <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-amber-100">
+              <div className="space-y-6">
+                {/* Q1: What is it */}
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                    ?
+                  </div>
+                  <div>
+                    <h4 className="text-base sm:text-lg font-semibold text-gray-900 mb-1">
+                      這張卡是什麼？
+                    </h4>
+                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                      這是一張<strong>數字黃金禮品卡</strong>。卡上的金額以克計算，兌換後即可獲得<strong>數字黃金餘額</strong>，可用於領取實物黃金或提取至個人錢包。
+                    </p>
+                  </div>
+                </div>
+
+                {/* Q2: Who issues it */}
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                    ?
+                  </div>
+                  <div>
+                    <h4 className="text-base sm:text-lg font-semibold text-gray-900 mb-1">
+                      誰來擔保這張卡的價值？
+                    </h4>
+                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                      這張卡兌換的是{' '}
+                      <a
+                        href="https://gold.tether.to/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-yellow-600 hover:text-yellow-700 underline underline-offset-2"
+                      >
+                        <strong>XAUt（Tether Gold）</strong>
+                      </a>
+                      ，由 Tether 公司發行並提供信用擔保。每一枚 XAUt 背後都有<strong>瑞士金庫實物黃金</strong>作爲儲備，1 XAUt = 1 盎司黃金，可接受第三方審計驗證。
+                    </p>
+                  </div>
+                </div>
+
+                {/* Q3: How much is it worth */}
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                    ?
+                  </div>
+                  <div>
+                    <h4 className="text-base sm:text-lg font-semibold text-gray-900 mb-1">
+                      這張卡值多少錢？
+                    </h4>
+                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                      卡面金額以<strong>黃金克數</strong>計價。例如，一張 10g 的禮品卡，代表你持有 10 克黃金的價值，按國際金價實時計算。黃金是全球通用的硬通貨，價值穩定且可隨時變現。
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* 如何使用 - 简化步骤 */}
           <section className="mb-12 sm:mb-20">
             <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-6 sm:mb-8 text-center">
-              如何開始
+              如何使用
             </h2>
             <div className="space-y-4 sm:space-y-6">
               <div className="flex items-start gap-4 sm:gap-6 p-4 sm:p-6 rounded-2xl bg-gray-50">
@@ -51,10 +119,10 @@ export default function ScanLandingPage() {
                 </div>
                 <div>
                   <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1">
-                    註冊賬戶
+                    輸入卡密
                   </h3>
                   <p className="text-sm sm:text-base text-gray-600">
-                    創建數字黃金賬戶
+                    在「綁定禮品卡」頁面輸入卡片背面的 16 位兌換碼
                   </p>
                 </div>
               </div>
@@ -65,10 +133,10 @@ export default function ScanLandingPage() {
                 </div>
                 <div>
                   <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1">
-                    輸入卡密
+                    餘額到賬
                   </h3>
                   <p className="text-sm sm:text-base text-gray-600">
-                    激活禮品卡至賬戶
+                    黃金餘額即刻存入你的 GoldFin 數字黃金賬戶
                   </p>
                 </div>
               </div>
@@ -79,35 +147,24 @@ export default function ScanLandingPage() {
                 </div>
                 <div>
                   <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1">
-                    選擇變現方式
+                    使用餘額
                   </h3>
                   <p className="text-sm sm:text-base text-gray-600">
-                    實金 / XAUt / USDT
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 sm:gap-6 p-4 sm:p-6 rounded-2xl bg-gray-50">
-                <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center text-white font-semibold text-lg sm:text-xl">
-                  4
-                </div>
-                <div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1">
-                    預約領取
-                  </h3>
-                  <p className="text-sm sm:text-base text-gray-600">
-                    到店或鏈上到賬
+                    預約實物金條、轉入加密錢包、或兌換為穩定幣
                   </p>
                 </div>
               </div>
             </div>
           </section>
 
-          {/* Redemption Options */}
+          {/* 余额可用于 - Apple 风格表达 */}
           <section className="mb-12 sm:mb-20">
-            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-6 sm:mb-8 text-center">
-              兌換方式
+            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-3 sm:mb-4 text-center">
+              餘額可用於
             </h2>
+            <p className="text-center text-sm sm:text-base text-gray-500 mb-6 sm:mb-8 max-w-xl mx-auto">
+              你可以使用 GoldFin 數字黃金賬戶餘額進行以下操作
+            </p>
             <div className="space-y-4 sm:space-y-6">
               <div className="flex items-start gap-4 sm:gap-6 p-5 sm:p-6 rounded-2xl bg-gray-50">
                 <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center">
@@ -117,10 +174,10 @@ export default function ScanLandingPage() {
                 </div>
                 <div>
                   <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1 sm:mb-2">
-                    領取實物黃金
+                    預約實物金條
                   </h3>
                   <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                    <strong>100g 起預約</strong> → 到店領取
+                    100g 起可預約到店領取實物黃金
                   </p>
                   <p className="text-xs sm:text-sm text-gray-500 mt-2">
                     首批支持香港，後續擴展至新加坡、迪拜 *
@@ -136,52 +193,34 @@ export default function ScanLandingPage() {
                 </div>
                 <div>
                   <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1 sm:mb-2">
-                    提取到個人錢包
+                    轉入加密錢包（XAUt）
                   </h3>
                   <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                    提取 XAUt 或兌換為 USDT 至錢包地址
+                    將餘額轉為 XAUt 數字黃金，存入你的個人錢包
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4 sm:gap-6 p-5 sm:p-6 rounded-2xl bg-gray-50">
+                <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center">
+                  <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1 sm:mb-2">
+                    兌換為穩定幣（USDT）
+                  </h3>
+                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                    按市價兌換為 USDT，轉入你的個人錢包 **
                   </p>
                 </div>
               </div>
             </div>
           </section>
 
-          {/* Partners Section */}
-          <section className="mb-12 sm:mb-20">
-            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-6 sm:mb-8 text-center">
-              合作伙伴
-            </h2>
-            <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl sm:rounded-3xl p-8 sm:p-12 border border-gray-100">
-              <p className="text-center text-sm sm:text-base text-gray-600 mb-8 sm:mb-10">
-                攜手優質合作伙伴，提供安全可靠的黃金兌換服務
-              </p>
 
-              {/* Partner Logos */}
-              <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 md:gap-12">
-                <div className="bg-white rounded-xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow border border-gray-100 min-w-[160px] sm:min-w-[200px]">
-                  <div className="text-center">
-                    <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-yellow-600 to-yellow-800 bg-clip-text text-transparent">
-                      POINT GOLD
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-white rounded-xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow border border-gray-100 min-w-[160px] sm:min-w-[200px]">
-                  <div className="flex items-center justify-center">
-                    <Image
-                      src="/images/tether-gold-logo.png"
-                      alt="Tether Gold"
-                      width={120}
-                      height={40}
-                      className="object-contain"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Value Propositions - 调整到后面 */}
+          {/* Value Propositions - 调整到合作伙伴之前 */}
           <section className="mb-12 sm:mb-20">
             <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-6 sm:mb-8 text-center">
               為什麼選擇數字黃金禮品卡
@@ -234,6 +273,41 @@ export default function ScanLandingPage() {
             </div>
           </section>
 
+          {/* Partners Section */}
+          <section className="mb-12 sm:mb-20">
+            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-6 sm:mb-8 text-center">
+              合作伙伴
+            </h2>
+            <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl sm:rounded-3xl p-8 sm:p-12 border border-gray-100">
+              <p className="text-center text-sm sm:text-base text-gray-600 mb-8 sm:mb-10">
+                攜手優質合作伙伴，提供安全可靠的黃金兌換服務
+              </p>
+
+              {/* Partner Logos */}
+              <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 md:gap-12">
+                <div className="bg-white rounded-xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow border border-gray-100 min-w-[160px] sm:min-w-[200px]">
+                  <div className="text-center">
+                    <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-yellow-600 to-yellow-800 bg-clip-text text-transparent">
+                      POINT GOLD
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow border border-gray-100 min-w-[160px] sm:min-w-[200px]">
+                  <div className="flex items-center justify-center">
+                    <Image
+                      src="/images/tether-gold-logo.png"
+                      alt="Tether Gold"
+                      width={120}
+                      height={40}
+                      className="object-contain"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* CTA Section */}
           <section className="mb-12 sm:mb-16">
             <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-2xl sm:rounded-3xl p-8 sm:p-12 border border-amber-100">
@@ -263,15 +337,34 @@ export default function ScanLandingPage() {
                     <span>查看我的黃金卡</span>
                   </Link>
                 </div>
-
-                {/* Footnote */}
-                <p className="text-xs sm:text-sm text-gray-500 mt-8 sm:mt-10">
-                  * 標記功能即將開放，敬請期待
-                </p>
               </div>
             </div>
           </section>
 
+        </div>
+
+        {/* Footnotes Section */}
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 pb-8">
+          <div className="border-t border-gray-200 pt-6">
+            <p className="text-xs text-gray-400 mb-3">說明</p>
+            <div className="space-y-2 text-xs text-gray-400">
+              <p>* 標記功能即將開放，敬請期待</p>
+              <p>** USDT 兌換：XAUt 至 USDT 的兌換通過 1inch 等去中心化交易聚合器完成，兌換過程中產生的滑點及手續費由用戶自行承擔。</p>
+              <p>
+                •{' '}
+                <a
+                  href="https://gold.tether.to/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-yellow-600 underline underline-offset-2"
+                >
+                  XAUt (Tether Gold)
+                </a>
+                {' '}— 由 Tether 發行的數字黃金代幣，1 XAUt = 1 盎司黃金
+              </p>
+              <p>• USDT — 與美元 1:1 掛鉤的穩定幣，可在主流交易所兌換現金</p>
+            </div>
+          </div>
         </div>
       </main>
 
