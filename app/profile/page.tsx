@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 // Mock data for gold gift cards (支持10g和100g版本，第一批以10g为主)
 const mockGoldCards = [
@@ -36,10 +36,16 @@ const mockGoldCards = [
 export default function ProfilePage() {
     // Add state
     const [showAppointmentModal, setShowAppointmentModal] = useState(false);
+    const [showRedeemSelectionModal, setShowRedeemSelectionModal] = useState(false);
+    const [showDigitalRedeemModal, setShowDigitalRedeemModal] = useState(false);
+    const [showOnboardingModal, setShowOnboardingModal] = useState(false);
+    const [onboardingStep, setOnboardingStep] = useState(1);
+    const [featureIndex, setFeatureIndex] = useState(0); // For feature card selection in onboarding
 
     const [isLoading, setIsLoading] = useState(true);
     const [activeTab, setActiveTab] = useState<'active' | 'inactive'>('active');
     const router = useRouter();
+    const searchParams = useSearchParams();
 
     // Check authentication status
     useEffect(() => {
@@ -55,6 +61,19 @@ export default function ProfilePage() {
 
         return () => clearTimeout(checkAuth);
     }, [router]);
+
+    // Show onboarding modal when redirected from binding
+    useEffect(() => {
+        if (!isLoading && searchParams.get('from') === 'binding') {
+            const hasSeenOnboarding = localStorage.getItem('hasSeenOnboarding');
+            if (!hasSeenOnboarding) {
+                setShowOnboardingModal(true);
+                setOnboardingStep(1);
+            }
+            // Clean up URL params
+            router.replace('/profile');
+        }
+    }, [isLoading, searchParams, router]);
 
     const activeCards = mockGoldCards.filter(card => card.status === 'active');
     const inactiveCards = mockGoldCards.filter(card => card.status === 'inactive');
@@ -233,14 +252,14 @@ export default function ProfilePage() {
                         <span>綁定新卡</span>
                     </Link>
                     <button
-                        onClick={() => setShowAppointmentModal(true)}
+                        onClick={() => setShowRedeemSelectionModal(true)}
                         className="flex-1 flex items-center justify-center gap-2 py-3.5 sm:py-4 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full text-white font-medium hover:shadow-lg hover:scale-[1.02] transition-all disabled:opacity-50 active:scale-[0.98]"
                         disabled={activeCards.length === 0}
                     >
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
-                        <span>預約兌換黃金</span>
+                        <span>我要兌換</span>
                     </button>
                 </div>
             </div>
@@ -261,32 +280,348 @@ export default function ProfilePage() {
                 </span>
             </a>
 
-            {/* Appointment Modal */}
+            {/* Redeem Selection Modal */}
+            {showRedeemSelectionModal && (
+                <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end sm:items-center justify-center z-50 p-4 pb-safe-bottom">
+                    <div className="bg-white rounded-t-3xl sm:rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl animate-slideUp sm:animate-fadeIn">
+                        <div className="flex items-center justify-between mb-6">
+                            <h3 className="text-xl sm:text-2xl font-bold text-gray-900">
+                                選擇兌換方式
+                            </h3>
+                            <button
+                                onClick={() => setShowRedeemSelectionModal(false)}
+                                className="p-2 -mr-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100 transition-colors"
+                            >
+                                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div className="grid gap-4">
+                            {/* Option 1: Physical Gold */}
+                            <button
+                                onClick={() => {
+                                    setShowRedeemSelectionModal(false);
+                                    router.push('/redemption');
+                                }}
+                                className="flex items-center gap-4 p-4 rounded-2xl border border-gray-200 hover:border-yellow-400 hover:bg-yellow-50/50 transition-all text-left group"
+                            >
+                                <div className="w-14 h-14 bg-gradient-to-br from-yellow-100 to-amber-100 rounded-xl flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
+                                    <span className="text-3xl">🧈</span>
+                                </div>
+                                <div className="flex-1">
+                                    <div className="flex items-center justify-between mb-1">
+                                        <h4 className="font-bold text-gray-900 text-lg">實物黃金</h4>
+                                        <svg className="w-5 h-5 text-gray-300 group-hover:text-yellow-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </div>
+                                    <p className="text-sm text-gray-500">預約前往指定門店提取實物金條，看得見的財富</p>
+                                </div>
+                            </button>
+
+                            {/* Option 2: Digital Token */}
+                            <button
+                                onClick={() => {
+                                    setShowRedeemSelectionModal(false);
+                                    setShowDigitalRedeemModal(true);
+                                }}
+                                className="flex items-center gap-4 p-4 rounded-2xl border border-gray-200 hover:border-blue-400 hover:bg-blue-50/50 transition-all text-left group"
+                            >
+                                <div className="w-14 h-14 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
+                                    <span className="text-3xl">🪙</span>
+                                </div>
+                                <div className="flex-1">
+                                    <div className="flex items-center justify-between mb-1">
+                                        <h4 className="font-bold text-gray-900 text-lg">XAUt / USDT</h4>
+                                        <svg className="w-5 h-5 text-gray-300 group-hover:text-blue-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </div>
+                                    <p className="text-sm text-gray-500">提現數字代幣至您的加密錢包，靈活掌控資產</p>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Physical Gold Appointment Modal (Coming Soon) */}
             {showAppointmentModal && (
                 <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl">
+                    <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl animate-fadeIn">
                         <div className="text-center">
-                            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
+                            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg shadow-yellow-200">
                                 <svg className="w-8 h-8 sm:w-10 sm:h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                             </div>
-                            <h3 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-2 sm:mb-3">
+                            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 sm:mb-3">
                                 敬請期待
                             </h3>
-                            <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8">
-                                我們將在2026年春節後開放預約。
+                            <p className="text-base sm:text-lg text-gray-600 mb-8 max-w-[80%] mx-auto leading-relaxed">
+                                實物黃金兌換服務將在<br />
+                                <span className="font-semibold text-yellow-600">2026年春節後</span><br />
+                                正式開放預約
                             </p>
                             <button
                                 onClick={() => setShowAppointmentModal(false)}
-                                className="w-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-white font-medium text-base sm:text-lg py-3 sm:py-3.5 rounded-full hover:shadow-lg hover:scale-[1.02] transition-all duration-300"
+                                className="w-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-white font-medium text-lg py-3.5 rounded-full hover:shadow-lg hover:scale-[1.02] transition-all duration-300 active:scale-[0.98]"
                             >
-                                確定
+                                我知道了
                             </button>
                         </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Digital Token Redeem Modal (Coming Soon) */}
+            {showDigitalRedeemModal && (
+                <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+                    <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl animate-fadeIn">
+                        <div className="text-center">
+                            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg shadow-blue-200">
+                                <svg className="w-8 h-8 sm:w-10 sm:h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                            </div>
+                            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 sm:mb-3">
+                                敬請期待
+                            </h3>
+                            <p className="text-base sm:text-lg text-gray-600 mb-8 max-w-[80%] mx-auto leading-relaxed">
+                                XAUt / USDT 提現功能<br />
+                                即將上線，盡請期待
+                            </p>
+                            <button
+                                onClick={() => setShowDigitalRedeemModal(false)}
+                                className="w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white font-medium text-lg py-3.5 rounded-full hover:shadow-lg hover:scale-[1.02] transition-all duration-300 active:scale-[0.98]"
+                            >
+                                我知道了
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Onboarding Modal */}
+            {showOnboardingModal && (
+                <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[60] p-4">
+                    <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl max-h-[90vh] overflow-y-auto">
+                        {/* Step 1: Congratulations */}
+                        {onboardingStep === 1 && (
+                            <div className="text-center">
+                                {/* Celebration Icon */}
+                                <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <svg className="w-10 h-10 sm:w-12 sm:h-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
+                                    🎉 恭喜您！
+                                </h3>
+                                <p className="text-lg sm:text-xl text-gray-700 mb-6">
+                                    您已成功激活數字黃金賬戶
+                                </p>
+
+                                {/* Rights List */}
+                                <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-2xl p-5 mb-6 text-left border border-amber-100">
+                                    <h4 className="font-semibold text-gray-900 mb-4 text-center">您現在擁有以下權益：</h4>
+                                    <ul className="space-y-3">
+                                        <li className="flex items-start gap-3">
+                                            <div className="w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                                <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                </svg>
+                                            </div>
+                                            <span className="text-gray-700">安全的數字黃金資產存儲</span>
+                                        </li>
+                                        <li className="flex items-start gap-3">
+                                            <div className="w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                                <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                </svg>
+                                            </div>
+                                            <span className="text-gray-700">靈活的提現與兌換選項</span>
+                                        </li>
+                                        <li className="flex items-start gap-3">
+                                            <div className="w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                                <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                </svg>
+                                            </div>
+                                            <span className="text-gray-700">實物黃金預約兌換資格</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <button
+                                    onClick={() => setOnboardingStep(2)}
+                                    className="w-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-white font-medium text-base sm:text-lg py-3.5 rounded-full hover:shadow-lg hover:scale-[1.02] transition-all duration-300"
+                                >
+                                    下一步
+                                </button>
+                            </div>
+                        )}
+
+                        {/* Step 2: Feature Walkthrough (Carousel) */}
+                        {onboardingStep === 2 && (
+                            <div className="flex flex-col h-full">
+                                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 text-center">
+                                    您的數字黃金可以做什麼？
+                                </h3>
+                                <div className="text-sm text-gray-500 mb-6 text-center flex justify-center gap-1.5">
+                                    {/* Progress Indicators */}
+                                    {[0, 1, 2, 3].map(idx => (
+                                        <div
+                                            key={idx}
+                                            className={`h-1.5 rounded-full transition-all duration-300 ${idx === featureIndex ? 'w-6 bg-yellow-500' : 'w-1.5 bg-gray-200'}`}
+                                        />
+                                    ))}
+                                </div>
+
+                                <div className="flex-1 flex flex-col md:flex-row gap-6 md:gap-8 items-center min-h-[300px]">
+                                    {/* Left: Text Content */}
+                                    <div className="flex-1 text-center md:text-left space-y-4 order-2 md:order-1">
+                                        {featureIndex === 0 && (
+                                            <div className="animate-fadeIn">
+                                                <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center mb-4 mx-auto md:mx-0">
+                                                    <svg className="w-6 h-6 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                    </svg>
+                                                </div>
+                                                <h4 className="text-xl font-bold text-gray-900 mb-2">提現 XAUt / USDT</h4>
+                                                <p className="text-gray-600 leading-relaxed">
+                                                    將您的數字黃金餘額提現為 XAUt 或 USDT，直接轉入您的個人加密貨幣錢包，資產掌控在自己手中。
+                                                </p>
+                                            </div>
+                                        )}
+                                        {featureIndex === 1 && (
+                                            <div className="animate-fadeIn">
+                                                <div className="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center mb-4 mx-auto md:mx-0">
+                                                    <svg className="w-6 h-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                                                    </svg>
+                                                </div>
+                                                <h4 className="text-xl font-bold text-gray-900 mb-2">兌換實物黃金</h4>
+                                                <p className="text-gray-600 leading-relaxed">
+                                                    在線預約，前往指定門店將數字餘額兌換為實物金條。最低 100g 起兌，讓看不見的數字資產變成看得見的真實財富。
+                                                </p>
+                                            </div>
+                                        )}
+                                        {featureIndex === 2 && (
+                                            <div className="animate-fadeIn">
+                                                <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mb-4 mx-auto md:mx-0">
+                                                    <svg className="w-6 h-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+                                                    </svg>
+                                                </div>
+                                                <h4 className="text-xl font-bold text-gray-900 mb-2">在線購買黃金禮品卡</h4>
+                                                <p className="text-gray-600 leading-relaxed">
+                                                    即將支援使用餘額直接購買黃金禮品卡，將這份珍貴的禮物輕鬆發送給親朋好友。
+                                                </p>
+                                            </div>
+                                        )}
+                                        {featureIndex === 3 && (
+                                            <div className="animate-fadeIn">
+                                                <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mb-4 mx-auto md:mx-0">
+                                                    <svg className="w-6 h-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                                    </svg>
+                                                </div>
+                                                <h4 className="text-xl font-bold text-gray-900 mb-2">邀請好友返利</h4>
+                                                <p className="text-gray-600 leading-relaxed">
+                                                    邀請好友註冊並購買禮品卡，您將獲得黃金返利獎勵。分享越多，收穫越多。
+                                                </p>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Right: Visual Placeholder */}
+                                    <div className="flex-1 w-full order-1 md:order-2">
+                                        <div className="bg-gray-50 rounded-3xl aspect-[4/3] md:aspect-square flex flex-col items-center justify-center relative overflow-hidden border border-gray-100 shadow-inner">
+                                            {/* Content based on index */}
+                                            {featureIndex === 0 && (
+                                                <div className="text-center p-6 animate-fadeIn">
+                                                    <div className="w-20 h-20 bg-white rounded-full shadow-lg flex items-center justify-center mx-auto mb-4">
+                                                        <span className="text-3xl">🪙</span>
+                                                    </div>
+                                                    <div className="text-sm font-medium text-gray-400">錢包提現示意圖</div>
+                                                </div>
+                                            )}
+                                            {featureIndex === 1 && (
+                                                <div className="text-center p-6 animate-fadeIn">
+                                                    <div className="w-20 h-20 bg-white rounded-full shadow-lg flex items-center justify-center mx-auto mb-4">
+                                                        <span className="text-3xl">🧈</span>
+                                                    </div>
+                                                    <div className="text-sm font-medium text-gray-400">實物兌換示意圖</div>
+                                                </div>
+                                            )}
+                                            {featureIndex === 2 && (
+                                                <div className="text-center p-6 animate-fadeIn">
+                                                    <div className="w-20 h-20 bg-white rounded-full shadow-lg flex items-center justify-center mx-auto mb-4 opacity-50">
+                                                        <span className="text-3xl">🎁</span>
+                                                    </div>
+                                                    <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] flex items-center justify-center">
+                                                        <div className="bg-amber-100 text-amber-800 px-4 py-2 rounded-full font-bold text-sm shadow-sm border border-amber-200 transform -rotate-6">
+                                                            敬請期待
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                            {featureIndex === 3 && (
+                                                <div className="text-center p-6 animate-fadeIn">
+                                                    <div className="w-20 h-20 bg-white rounded-full shadow-lg flex items-center justify-center mx-auto mb-4 opacity-50">
+                                                        <span className="text-3xl">🤝</span>
+                                                    </div>
+                                                    <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] flex items-center justify-center">
+                                                        <div className="bg-amber-100 text-amber-800 px-4 py-2 rounded-full font-bold text-sm shadow-sm border border-amber-200 transform -rotate-6">
+                                                            敬請期待
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="mt-8 pt-6 border-t border-gray-100">
+                                    <button
+                                        onClick={() => {
+                                            if (featureIndex < 3) {
+                                                setFeatureIndex(prev => prev + 1);
+                                            } else {
+                                                localStorage.setItem('hasSeenOnboarding', 'true');
+                                                setShowOnboardingModal(false);
+                                                setOnboardingStep(1);
+                                                setFeatureIndex(0);
+                                            }
+                                        }}
+                                        className="w-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-white font-medium text-lg py-3.5 rounded-full hover:shadow-lg hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2 group"
+                                    >
+                                        {featureIndex < 3 ? (
+                                            <>
+                                                下一步
+                                                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                                </svg>
+                                            </>
+                                        ) : (
+                                            <>
+                                                開始使用
+                                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                </svg>
+                                            </>
+                                        )}
+                                    </button>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             )}
         </div>
     );
 }
+

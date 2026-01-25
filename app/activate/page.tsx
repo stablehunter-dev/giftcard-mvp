@@ -15,6 +15,8 @@ export default function ActivatePage() {
     const [isProcessingImage, setIsProcessingImage] = useState(false);
     const [showOCRModal, setShowOCRModal] = useState(false);
     const [ocrStatus, setOCRStatus] = useState<'processing' | 'success' | 'failed'>('processing');
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
+    const [cardInfo, setCardInfo] = useState<{ amount: number } | null>(null);
 
     const fileInputRef = useRef<HTMLInputElement>(null);
     const router = useRouter();
@@ -50,12 +52,26 @@ export default function ActivatePage() {
 
         setIsSubmitting(true);
 
-        // Simulate API call
+        // Simulate API call to check card status and get card info
         setTimeout(() => {
             setIsSubmitting(false);
-            setShowSuccessModal(true);
-            setRedemptionCode('');
+            // Mock: Card is valid with 10g gold
+            setCardInfo({ amount: 10 });
+            setShowConfirmModal(true);
+            // Note: Do NOT clear redemptionCode here - keep it in case user cancels
         }, 1500);
+    };
+
+    const handleConfirmBinding = () => {
+        setShowConfirmModal(false);
+        setShowSuccessModal(true);
+        setRedemptionCode('');
+        setCardInfo(null);
+    };
+
+    const handleCancelBinding = () => {
+        setShowConfirmModal(false);
+        // Keep redemptionCode as is, so user stays on page with input preserved
     };
 
     const handleCameraClick = () => {
@@ -537,14 +553,71 @@ export default function ActivatePage() {
                                 綁定成功！
                             </h3>
                             <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8">
-                                您的禮品卡已成功綁定至帳戶。
+                                您的禮品卡已成功綁定至帳戶，黃金餘額已充值到您的數字黃金賬戶。
                             </p>
                             <button
-                                onClick={() => setShowSuccessModal(false)}
+                                onClick={() => router.push('/profile?from=binding')}
                                 className="w-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-white font-medium text-base sm:text-lg py-3 sm:py-3.5 rounded-full hover:shadow-lg hover:scale-[1.02] transition-all duration-300"
                             >
-                                確定
+                                前往使用
                             </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Second Confirmation Modal */}
+            {showConfirmModal && cardInfo && (
+                <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+                    <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl">
+                        <div className="text-center">
+                            {/* Gold icon */}
+                            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
+                                <svg className="w-8 h-8 sm:w-10 sm:h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                                </svg>
+                            </div>
+                            <h3 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-2 sm:mb-3">
+                                確認充值
+                            </h3>
+
+                            {/* Card Asset Info */}
+                            <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-2xl p-4 sm:p-5 mb-4 sm:mb-5 border border-amber-100">
+                                <p className="text-sm text-gray-500 mb-2">禮品卡資產</p>
+                                <div className="flex items-baseline justify-center gap-1">
+                                    <span className="text-4xl sm:text-5xl font-bold text-gray-900">{cardInfo.amount}</span>
+                                    <span className="text-xl sm:text-2xl font-medium text-gray-600">g</span>
+                                </div>
+                                <p className="text-sm text-gray-500 mt-1">黃金</p>
+                            </div>
+
+                            {/* Warning */}
+                            <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 sm:p-4 mb-6 sm:mb-8">
+                                <div className="flex items-start gap-2 text-left">
+                                    <svg className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                    </svg>
+                                    <p className="text-sm text-amber-800">
+                                        確認後，此禮品卡將立即<strong>失效</strong>，資產將充值到您的數字黃金賬戶中。此操作<strong>不可撤銷</strong>。
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Action Buttons */}
+                            <div className="flex gap-3">
+                                <button
+                                    onClick={handleCancelBinding}
+                                    className="flex-1 py-3 sm:py-3.5 border-2 border-gray-300 rounded-full text-gray-700 font-medium hover:border-gray-400 transition-all"
+                                >
+                                    取消
+                                </button>
+                                <button
+                                    onClick={handleConfirmBinding}
+                                    className="flex-1 bg-gradient-to-r from-yellow-400 to-yellow-600 text-white font-medium py-3 sm:py-3.5 rounded-full hover:shadow-lg hover:scale-[1.02] transition-all duration-300"
+                                >
+                                    確認充值
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
