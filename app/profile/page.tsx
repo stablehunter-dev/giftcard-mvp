@@ -4,6 +4,7 @@ import { useState, useEffect, Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import TradingViewWidget from '../components/TradingViewWidget';
 
 // Mock data for gold gift cards (支持10g和100g版本，第一批以10g为主)
 const mockGoldCards = [
@@ -44,8 +45,50 @@ function ProfileContent() {
 
     const [isLoading, setIsLoading] = useState(true);
     const [activeTab, setActiveTab] = useState<'active' | 'inactive'>('active');
+    const [currentGoldPrice, setCurrentGoldPrice] = useState(85.32);
+    const [priceChange24h, setPriceChange24h] = useState(1.24);
+    const [trendData, setTrendData] = useState<number[]>([83, 83.5, 84.2, 83.8, 84.5, 85, 84.7, 85.32]);
     const router = useRouter();
     const searchParams = useSearchParams();
+
+    // Fetch real-time XAUT price from API
+    useEffect(() => {
+        if (isLoading) return;
+
+        const fetchGoldPrice = async () => {
+            try {
+                // Using a CORS proxy for demo, in production use your backend
+                const response = await fetch(
+                    'https://api.coingecko.com/api/v3/simple/price?ids=tether-gold&vs_currencies=usd'
+                );
+                const data = await response.json();
+
+                // Get XAUT price in USD per ounce (XAUt is pegged to 1 oz gold)
+                const pricePerOunce = data['tether-gold']?.usd || 2640; // Fallback
+
+                // Convert to USD per gram (1 oz = 31.1035 grams)
+                const pricePerGram = pricePerOunce / 31.1035;
+                setCurrentGoldPrice(Math.round(pricePerGram * 100) / 100);
+
+                // Update trend data
+                setTrendData(prev => {
+                    const newData = [...prev.slice(1), pricePerGram];
+                    return newData;
+                });
+            } catch (error) {
+                console.error('Failed to fetch gold price:', error);
+                // Keep using current price on error
+            }
+        };
+
+        // Fetch immediately
+        fetchGoldPrice();
+
+        // Update every 30 seconds
+        const interval = setInterval(fetchGoldPrice, 30000);
+
+        return () => clearInterval(interval);
+    }, [isLoading]);
 
     // Check authentication status
     useEffect(() => {
@@ -163,6 +206,54 @@ function ProfileContent() {
                                             />
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+
+                            {/* Gold Price Widget */}
+                            <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-md border border-gray-100 mt-6">
+                                <div className="flex items-center justify-between mb-4">
+                                    <div>
+                                        <div className="text-xs sm:text-sm font-medium text-gray-500 mb-1">实时金价 (XAUT)</div>
+                                        <div className="flex items-baseline gap-2">
+                                            <span className="text-3xl sm:text-4xl font-bold text-gray-900">
+                                                ${currentGoldPrice}
+                                            </span>
+                                            <span className="text-sm text-gray-500">/克</span>
+                                        </div>
+                                    </div>
+                                    <div className={`text-right ${priceChange24h >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                        <div className="text-xs font-medium">24H</div>
+                                        <div className="text-lg font-semibold">
+                                            {priceChange24h >= 0 ? '+' : ''}{priceChange24h.toFixed(2)}%
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* TradingView Widget */}
+                                <div className="mt-4">
+                                    <div className="text-xs text-gray-500 mb-2">市场行情</div>
+                                    <div className="rounded-xl overflow-hidden bg-gray-50" style={{ height: '400px' }}>
+                                        <TradingViewWidget />
+                                    </div>
+                                </div>
+
+                                {/* Asset Value */}
+                                <div className="mt-4 pt-4 border-t border-gray-100">
+                                    <div className="flex justify-between items-center">
+                                        <div className="text-xs text-gray-500">您的资产价值</div>
+                                        <div className="text-right">
+                                            <div className="text-lg font-bold text-gray-900">
+                                                ${(totalAmount * currentGoldPrice).toFixed(2)}
+                                            </div>
+                                            <div className="text-xs text-gray-500">
+                                                {totalAmount}g × ${currentGoldPrice}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="text-[10px] text-gray-400 text-center mt-3">
+                                    数据每30秒自动更新
                                 </div>
                             </div>
                         </div>
