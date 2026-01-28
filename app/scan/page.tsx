@@ -1,388 +1,489 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
+
+// Dynamic card data - in production, this would come from API or URL params
+const CARD_DATA = {
+  amount: 10,
+  currency: 'XAU₮',
+  usdValue: 2500,
+};
+
+const FAQ_ITEMS = [
+  {
+    id: 1,
+    question: 'What is TetherGold?',
+    answer: 'Tether Gold is a digital asset pegged to physical gold, launched in 2020 by Tether, the stablecoin giant. Each XAUT token represents one troy ounce of gold stored in a secure vault in Switzerland.',
+  },
+  {
+    id: 2,
+    question: 'How do I redeem my gift card?',
+    answer: 'Click "Bind Gift Card", enter the redemption code on the back of your card, and the gold value will be instantly credited to your GoldFin account.',
+  },
+  {
+    id: 3,
+    question: 'Can I withdraw physical gold?',
+    answer: 'Yes, you can schedule a physical gold redemption at our partner locations. The minimum withdrawal amount is 100g.',
+  },
+  {
+    id: 4,
+    question: 'Is my gold secure?',
+    answer: 'Absolutely. All gold is backed by Tether Gold (XAUT) tokens, which represent physical gold stored in Swiss vaults with regular third-party audits.',
+  },
+  {
+    id: 5,
+    question: 'What fees are involved?',
+    answer: 'Gift card activation is free. Physical redemption has a small handling fee. Converting XAUT to USDT uses decentralized exchanges with standard network fees.',
+  },
+  {
+    id: 6,
+    question: 'How long is the gift card valid?',
+    answer: 'GoldFin gift cards do not expire. However, once activated, the physical card becomes invalid for security reasons.',
+  },
+];
 
 export default function ScanLandingPage() {
+  const [openFaqId, setOpenFaqId] = useState<number | null>(1);
+
+  const toggleFaq = (id: number) => {
+    setOpenFaqId(openFaqId === id ? null : id);
+  };
+
   return (
-    <div className="min-h-screen bg-white">
-      {/* Slim Header with CTA */}
-      <header className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-xl border-b border-gray-200 z-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
-          <Image
-            src="/images/goldfin-logo.png"
-            alt="Goldfin"
-            width={90}
-            height={30}
-            className="object-contain"
-            priority
-          />
-          <Link
-            href="/activate"
-            className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white font-medium text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-2.5 rounded-full hover:shadow-lg hover:scale-105 transition-all duration-300"
-          >
-            綁定禮品卡
-          </Link>
+    <div className="min-h-screen bg-[#060606] text-white overflow-x-hidden">
+      {/* Background Layer - Bottom gradient to avoid pure black */}
+      <div className="fixed inset-0 pointer-events-none">
+        {/* Base dark background */}
+        <div className="absolute inset-0 bg-[#060606]" />
+        {/* Top-left glow for hero area */}
+        <div className="absolute -left-[200px] -top-[200px] w-[800px] h-[800px] opacity-40">
+          <div className="w-full h-full rounded-full bg-gradient-to-br from-[#D89F3F]/20 via-[#623100]/10 to-transparent blur-3xl" />
         </div>
-      </header>
+        {/* Bottom gradient layer */}
+        <div className="absolute bottom-0 left-0 right-0 h-[60%] bg-gradient-to-t from-[#0a0804] via-[#080605] to-transparent" />
+        {/* Subtle noise/texture overlay */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+        }} />
+      </div>
+
+      {/* Hero Section */}
+      <div className="relative h-[278px] overflow-hidden">
+        {/* Gradient Background */}
+        <div className="absolute inset-0 bg-[#060606]">
+          {/* Golden Ellipse Background Image */}
+          <div className="absolute -left-[300px] -top-[150px] w-[900px] h-[800px] opacity-80">
+            <img
+              src="https://www.figma.com/api/mcp/asset/0103067d-e3dc-452c-a304-f194fb8759a3"
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </div>
+          {/* Texture overlay */}
+          <div className="absolute inset-0 opacity-30 mix-blend-overlay"
+               style={{
+                 backgroundImage: `url("https://www.figma.com/api/mcp/asset/4db0399c-c7b9-40fa-9dc6-a46b7f809e3c")`,
+                 backgroundSize: '1024px 1024px'
+               }} />
+          {/* Noise texture */}
+          <div className="absolute inset-0 opacity-20"
+               style={{
+                 backgroundImage: `url("https://www.figma.com/api/mcp/asset/14aa6303-491d-40da-a95f-6428b38c845d")`,
+                 backgroundSize: '400px 400px'
+               }} />
+          {/* Bottom blur for fade effect */}
+          <div className="absolute -bottom-32 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-black blur-[54px]" />
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 h-full flex flex-col justify-center px-6 pt-8">
+          <h1 className="text-[46px] font-bold leading-[1.1] tracking-tight mb-3"
+              style={{
+                background: 'linear-gradient(110.6deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                textShadow: '3.8px 3.8px 5.7px rgba(44,18,2,0.8)'
+              }}>
+            Easy Gold<br />Real Value
+          </h1>
+          <p className="text-lg leading-relaxed"
+             style={{
+               background: 'linear-gradient(161deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
+               WebkitBackgroundClip: 'text',
+               WebkitTextFillColor: 'transparent',
+               textShadow: '3.8px 3.8px 5.7px #2c1202'
+             }}>
+            Instant redemption, goods or cash.
+          </p>
+        </div>
+      </div>
 
       {/* Main Content */}
-      <main className="pt-16 sm:pt-20 pb-12 px-4 sm:px-6">
-        <div className="max-w-3xl mx-auto">
-          {/* Hero Section */}
-          <div className="text-center mb-12 sm:mb-16 pt-6 sm:pt-8">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-gray-900 mb-4 sm:mb-6">
-              你的數字黃金
-              <br />
-              隨時握在手中
-            </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 font-light">
-              無需實名 · 全球兌換 · 靈活變現
-            </p>
+      <main className="relative z-10 px-4 pb-8">
+        {/* Gold Card Display */}
+        <div className="flex justify-center mb-6">
+          <div className="relative w-full max-w-[354px] h-[224px] rounded-2xl overflow-hidden shadow-[3px_3px_10px_rgba(44,18,2,0.6)]"
+               style={{
+                 background: 'linear-gradient(97.4deg, #D2822F 25.7%, #DAA543 31.3%, #F7D377 81.8%)'
+               }}>
+            {/* Tether Gold Logo - Bottom Right */}
+            <div className="absolute bottom-5 right-5">
+              <Image
+                src="/images/tether-gold-logo.png"
+                alt="Tether Gold"
+                width={100}
+                height={32}
+                className="object-contain"
+              />
+            </div>
+            {/* Card Value - Top Right */}
+            <div className="absolute top-5 right-5 text-[#7B4612] font-bold">
+              <span className="text-[28px]">{CARD_DATA.amount}</span>
+              <span className="text-[13px] ml-1">g</span>
+            </div>
           </div>
-
-          {/* 认识你的礼品卡 - 放在最前面 */}
-          <section className="mb-12 sm:mb-20">
-            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-3 sm:mb-4 text-center">
-              認識你的禮品卡
-            </h2>
-            <p className="text-center text-sm sm:text-base text-gray-500 mb-6 sm:mb-8 max-w-xl mx-auto">
-              了解這張卡能為你帶來什麼
-            </p>
-
-            <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-amber-100">
-              <div className="space-y-6">
-                {/* Q1: What is it */}
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                    ?
-                  </div>
-                  <div>
-                    <h4 className="text-base sm:text-lg font-semibold text-gray-900 mb-1">
-                      這張卡是什麼？
-                    </h4>
-                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                      這是一張<strong>數字黃金禮品卡</strong>。卡上的金額以克計算，兌換後即可獲得<strong>數字黃金餘額</strong>，可用於領取實物黃金或提取至個人錢包。
-                    </p>
-                  </div>
-                </div>
-
-                {/* Q2: Who issues it */}
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                    ?
-                  </div>
-                  <div>
-                    <h4 className="text-base sm:text-lg font-semibold text-gray-900 mb-1">
-                      誰來擔保這張卡的價值？
-                    </h4>
-                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                      這張卡兌換的是{' '}
-                      <a
-                        href="https://gold.tether.to/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-yellow-600 hover:text-yellow-700 underline underline-offset-2"
-                      >
-                        <strong>XAUt（Tether Gold）</strong>
-                      </a>
-                      ，由 Tether 公司發行並提供信用擔保。每一枚 XAUt 背後都有<strong>瑞士金庫實物黃金</strong>作爲儲備，1 XAUt = 1 盎司黃金，可接受第三方審計驗證。
-                    </p>
-                  </div>
-                </div>
-
-                {/* Q3: How much is it worth */}
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                    ?
-                  </div>
-                  <div>
-                    <h4 className="text-base sm:text-lg font-semibold text-gray-900 mb-1">
-                      這張卡值多少錢？
-                    </h4>
-                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                      卡面金額以<strong>黃金克數</strong>計價。例如，一張 10g 的禮品卡，代表你持有 10 克黃金的價值，按國際金價實時計算。黃金是全球通用的硬通貨，價值穩定且可隨時變現。
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* 如何使用 - 简化步骤 */}
-          <section className="mb-12 sm:mb-20">
-            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-6 sm:mb-8 text-center">
-              如何使用
-            </h2>
-            <div className="space-y-4 sm:space-y-6">
-              <div className="flex items-start gap-4 sm:gap-6 p-4 sm:p-6 rounded-2xl bg-gray-50">
-                <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center text-white font-semibold text-lg sm:text-xl">
-                  1
-                </div>
-                <div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1">
-                    輸入卡密
-                  </h3>
-                  <p className="text-sm sm:text-base text-gray-600">
-                    在「綁定禮品卡」頁面輸入卡片背面的 16 位兌換碼
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 sm:gap-6 p-4 sm:p-6 rounded-2xl bg-gray-50">
-                <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center text-white font-semibold text-lg sm:text-xl">
-                  2
-                </div>
-                <div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1">
-                    餘額到賬
-                  </h3>
-                  <p className="text-sm sm:text-base text-gray-600">
-                    黃金餘額即刻存入你的 GoldFin 數字黃金賬戶
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 sm:gap-6 p-4 sm:p-6 rounded-2xl bg-gray-50">
-                <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center text-white font-semibold text-lg sm:text-xl">
-                  3
-                </div>
-                <div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1">
-                    使用餘額
-                  </h3>
-                  <p className="text-sm sm:text-base text-gray-600">
-                    預約實物金條、轉入加密錢包、或兌換為穩定幣
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* 余额可用于 - Apple 风格表达 */}
-          <section className="mb-12 sm:mb-20">
-            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-3 sm:mb-4 text-center">
-              餘額可用於
-            </h2>
-            <p className="text-center text-sm sm:text-base text-gray-500 mb-6 sm:mb-8 max-w-xl mx-auto">
-              你可以使用 GoldFin 數字黃金賬戶餘額進行以下操作
-            </p>
-            <div className="space-y-4 sm:space-y-6">
-              <div className="flex items-start gap-4 sm:gap-6 p-5 sm:p-6 rounded-2xl bg-gray-50">
-                <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center">
-                  <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1 sm:mb-2">
-                    預約實物金條
-                  </h3>
-                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                    100g 起可預約到店領取實物黃金
-                  </p>
-                  <p className="text-xs sm:text-sm text-gray-500 mt-2">
-                    首批支持香港，後續擴展至新加坡、迪拜 *
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 sm:gap-6 p-5 sm:p-6 rounded-2xl bg-gray-50">
-                <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center">
-                  <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1 sm:mb-2">
-                    轉入加密錢包（XAUt）
-                  </h3>
-                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                    將餘額轉為 XAUt 數字黃金，存入你的個人錢包
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 sm:gap-6 p-5 sm:p-6 rounded-2xl bg-gray-50">
-                <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center">
-                  <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-1 sm:mb-2">
-                    兌換為穩定幣（USDT）
-                  </h3>
-                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                    按市價兌換為 USDT，轉入你的個人錢包 **
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-
-          {/* Value Propositions - 调整到合作伙伴之前 */}
-          <section className="mb-12 sm:mb-20">
-            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-6 sm:mb-8 text-center">
-              為什麼選擇數字黃金禮品卡
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
-              {/* Anonymity */}
-              <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-amber-50 to-yellow-50 border border-amber-100">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center mb-4">
-                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                  </svg>
-                </div>
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
-                  免實名持有
-                </h3>
-                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                  無需 KYC，卡密即所有權
-                </p>
-              </div>
-
-              {/* Crypto Purchase */}
-              <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-amber-50 to-yellow-50 border border-amber-100">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center mb-4">
-                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
-                  加密貨幣購買 *
-                </h3>
-                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                  支持多種數字貨幣
-                </p>
-              </div>
-
-              {/* Flexible Redemption */}
-              <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-amber-50 to-yellow-50 border border-amber-100">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center mb-4">
-                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-                  </svg>
-                </div>
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
-                  靈活兌換
-                </h3>
-                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                  實金、XAUt 或 USDT 任選
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* Partners Section */}
-          <section className="mb-12 sm:mb-20">
-            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-6 sm:mb-8 text-center">
-              合作伙伴
-            </h2>
-            <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl sm:rounded-3xl p-8 sm:p-12 border border-gray-100">
-              <p className="text-center text-sm sm:text-base text-gray-600 mb-8 sm:mb-10">
-                攜手優質合作伙伴，提供安全可靠的黃金兌換服務
-              </p>
-
-              {/* Partner Logos */}
-              <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 md:gap-12">
-                <div className="bg-white rounded-xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow border border-gray-100 min-w-[160px] sm:min-w-[200px]">
-                  <div className="text-center">
-                    <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-yellow-600 to-yellow-800 bg-clip-text text-transparent">
-                      POINT GOLD
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-white rounded-xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow border border-gray-100 min-w-[160px] sm:min-w-[200px]">
-                  <div className="flex items-center justify-center">
-                    <Image
-                      src="/images/tether-gold-logo.png"
-                      alt="Tether Gold"
-                      width={120}
-                      height={40}
-                      className="object-contain"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* CTA Section */}
-          <section className="mb-12 sm:mb-16">
-            <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-2xl sm:rounded-3xl p-8 sm:p-12 border border-amber-100">
-              <div className="text-center max-w-2xl mx-auto">
-                <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4 sm:mb-6">
-                  立即開始
-                </h3>
-
-                {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-                  <Link
-                    href="/activate"
-                    className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 bg-gradient-to-r from-yellow-400 to-yellow-600 text-white font-medium rounded-full hover:shadow-lg hover:scale-105 transition-all duration-300"
-                  >
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                    </svg>
-                    <span>綁定禮品卡</span>
-                  </Link>
-                  <Link
-                    href="/profile"
-                    className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 bg-white text-gray-700 font-medium rounded-full border-2 border-gray-300 hover:border-yellow-400 hover:text-yellow-600 transition-all duration-300"
-                  >
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    <span>查看我的黃金卡</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </section>
-
         </div>
 
-        {/* Footnotes Section */}
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 pb-8">
-          <div className="border-t border-gray-200 pt-6">
-            <p className="text-xs text-gray-400 mb-3">說明</p>
-            <div className="space-y-2 text-xs text-gray-400">
-              <p>* 標記功能即將開放，敬請期待</p>
-              <p>** USDT 兌換：XAUt 至 USDT 的兌換通過 1inch 等去中心化交易聚合器完成，兌換過程中產生的滑點及手續費由用戶自行承擔。</p>
-              <p>
-                •{' '}
-                <a
-                  href="https://gold.tether.to/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-yellow-600 underline underline-offset-2"
-                >
-                  XAUt (Tether Gold)
-                </a>
-                {' '}— 由 Tether 發行的數字黃金代幣，1 XAUt = 1 盎司黃金
-              </p>
-              <p>• USDT — 與美元 1:1 掛鉤的穩定幣，可在主流交易所兌換現金</p>
+        {/* Value Text - Dynamic */}
+        <div className="text-center mb-6">
+          <p className="text-[14px] font-semibold mb-1"
+             style={{
+               background: 'linear-gradient(161.3deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
+               WebkitBackgroundClip: 'text',
+               WebkitTextFillColor: 'transparent',
+               textShadow: '7px 7px 10.7px #2c1202'
+             }}>
+            {CARD_DATA.amount} {CARD_DATA.currency} ≈ {CARD_DATA.usdValue.toLocaleString()} USD
+          </p>
+          <p className="text-[10px] text-[#453113]">
+            Redeem digital gold or physical gold bars after collection.
+          </p>
+        </div>
+
+        {/* Bind Gift Card Button */}
+        <Link href="/activate">
+          <div className="w-full h-[50px] rounded-full flex items-center justify-center mb-10 border border-[#F3CD71]"
+               style={{
+                 background: 'linear-gradient(162.5deg, rgba(217,159,63,0.2) 25%, rgba(98,49,0,0.2) 56%, rgba(28,14,0,0.2) 89%)',
+                 backdropFilter: 'blur(32px)'
+               }}>
+            <span className="text-[18px] font-semibold"
+                  style={{
+                    background: 'linear-gradient(137.7deg, #FFF3C5 1.9%, #F7D377 40%, #DCAB46 60.2%, #D2822F 103.5%, #6B3D15 125.6%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    textShadow: '7px 7px 10.7px #2c1202'
+                  }}>
+              Bind Gift Card
+            </span>
+          </div>
+        </Link>
+
+        {/* 3 Steps Section */}
+        <div className="mb-10">
+          <h2 className="text-center text-[22px] font-semibold mb-6"
+              style={{
+                background: 'linear-gradient(161deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                textShadow: '7px 7px 10.7px #2c1202'
+              }}>
+            Activate gold assets in 3 steps
+          </h2>
+
+          <div className="rounded-2xl p-5 relative"
+               style={{
+                 background: 'linear-gradient(150.6deg, rgba(217,159,63,0.2) 1.4%, rgba(98,49,0,0.2) 43.7%, rgba(6,6,6,0.2) 82.1%)',
+                 backdropFilter: 'blur(32px)'
+               }}>
+            {/* Vertical Line */}
+            <div className="absolute left-[33px] top-[55px] w-[1px] h-[230px] bg-gradient-to-b from-[#F7D377]/50 via-[#DCAB46]/30 to-transparent" />
+
+            {/* Step 1 */}
+            <div className="flex gap-4 mb-8">
+              <div className="relative flex-shrink-0">
+                <div className="w-6 h-6 rounded-full bg-[#F7D377] flex items-center justify-center">
+                  <span className="text-[#271102] text-[12px] font-bold">01</span>
+                </div>
+              </div>
+              <div>
+                <h3 className="text-[18px] font-semibold mb-1"
+                    style={{
+                      background: 'linear-gradient(113.1deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      textShadow: '8px 8px 12px #2c1202'
+                    }}>
+                  Claim your digital gold
+                </h3>
+                <p className="text-[14px] leading-relaxed opacity-80"
+                   style={{
+                     background: 'linear-gradient(113.1deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
+                     WebkitBackgroundClip: 'text',
+                     WebkitTextFillColor: 'transparent',
+                     textShadow: '8px 8px 12px #2c1202'
+                   }}>
+                  Click &quot;Confirm Gift Card,&quot; enter the &quot;redemption code&quot; on the back of the card to claim your digital GoldFin account.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 2 */}
+            <div className="flex gap-4 mb-8">
+              <div className="relative flex-shrink-0">
+                <div className="w-6 h-6 rounded-full bg-[#F7D377] flex items-center justify-center">
+                  <span className="text-[#271102] text-[12px] font-bold">02</span>
+                </div>
+              </div>
+              <div>
+                <h3 className="text-[18px] font-semibold mb-1"
+                    style={{
+                      background: 'linear-gradient(113.1deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      textShadow: '8px 8px 12px #2c1202'
+                    }}>
+                  Schedule physical redemption
+                </h3>
+                <p className="text-[14px] leading-relaxed opacity-80"
+                   style={{
+                     background: 'linear-gradient(113.1deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
+                     WebkitBackgroundClip: 'text',
+                     WebkitTextFillColor: 'transparent',
+                     textShadow: '8px 8px 12px #2c1202'
+                   }}>
+                  Click &quot;Confirm Gift Card,&quot; enter the &quot;redemption code&quot; on the back of the card to claim your digital GoldFin account.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 3 */}
+            <div className="flex gap-4">
+              <div className="relative flex-shrink-0">
+                <div className="w-6 h-6 rounded-full bg-[#F7D377] flex items-center justify-center">
+                  <span className="text-[#271102] text-[12px] font-bold">03</span>
+                </div>
+              </div>
+              <div>
+                <h3 className="text-[18px] font-semibold mb-1"
+                    style={{
+                      background: 'linear-gradient(113.1deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      textShadow: '8px 8px 12px #2c1202'
+                    }}>
+                  Deposit into your wallet
+                </h3>
+                <p className="text-[14px] leading-relaxed opacity-80"
+                   style={{
+                     background: 'linear-gradient(113.1deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      textShadow: '8px 8px 12px #2c1202'
+                   }}>
+                  Click &quot;Confirm Gift Card,&quot; enter the &quot;redemption code&quot; on the back of the card to claim your digital GoldFin account.
+                </p>
+              </div>
             </div>
           </div>
+        </div>
+
+        {/* Each gram is backed by real gold */}
+        <h2 className="text-center text-[22px] font-semibold mb-4"
+            style={{
+              background: 'linear-gradient(161deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              textShadow: '7px 7px 10.7px #2c1202'
+            }}>
+          Each gram is backed by real gold
+        </h2>
+
+        {/* Info Cards - Fixed height and margin */}
+        <div className="flex gap-3 mb-6 overflow-x-auto pb-4 snap-x snap-mandatory">
+          {/* Card 1 */}
+          <div className="flex-shrink-0 w-[272px] min-h-[280px] rounded-2xl p-5 border border-[#E3B655] snap-start mb-2"
+               style={{
+                 background: 'linear-gradient(138.1deg, rgba(217,159,63,0.2) 24%, rgba(98,49,0,0.2) 55.9%, rgba(28,14,0,0.2) 89.9%)',
+                 backdropFilter: 'blur(32px)'
+               }}>
+            <div className="w-16 h-16 mb-4 rounded-full bg-gradient-to-br from-[#F7D377]/30 to-[#D2822F]/30 flex items-center justify-center">
+              <svg className="w-8 h-8 text-[#F7D377]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+              </svg>
+            </div>
+            <h3 className="text-[16px] font-semibold mb-3 leading-tight"
+                style={{
+                  background: 'linear-gradient(126.2deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  textShadow: '8px 8px 12px #2c1202'
+                }}>
+              How to determine the value of the gift card?
+            </h3>
+            <p className="text-[14px] leading-relaxed"
+               style={{
+                 background: 'linear-gradient(108.7deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
+                 WebkitBackgroundClip: 'text',
+                 WebkitTextFillColor: 'transparent',
+                 textShadow: '8px 8px 12px #2c1202'
+               }}>
+              This is a digital gold gift card. The amount on the card is measured in grams, and upon redemption, you will receive a digital gold balance that can be used to claim physical gold or withdrawn to your personal wallet.
+            </p>
+          </div>
+
+          {/* Card 2 */}
+          <div className="flex-shrink-0 w-[272px] min-h-[280px] rounded-2xl p-5 snap-start mb-2"
+               style={{
+                 background: 'linear-gradient(138.1deg, rgba(217,159,63,0.2) 24%, rgba(98,49,0,0.2) 55.9%, rgba(28,14,0,0.2) 89.9%)',
+                 backdropFilter: 'blur(32px)'
+               }}>
+            <div className="w-16 h-16 mb-4 rounded-full bg-gradient-to-br from-[#F7D377]/30 to-[#D2822F]/30 flex items-center justify-center">
+              <svg className="w-8 h-8 text-[#F7D377]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            </div>
+            <h3 className="text-[16px] font-semibold mb-3 leading-tight"
+                style={{
+                  background: 'linear-gradient(126.2deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  textShadow: '8px 8px 12px #2c1202'
+                }}>
+              How to determine the value of the gift card?
+            </h3>
+            <p className="text-[14px] leading-relaxed"
+               style={{
+                 background: 'linear-gradient(108.7deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
+                 WebkitBackgroundClip: 'text',
+                 WebkitTextFillColor: 'transparent',
+                 textShadow: '8px 8px 12px #2c1202'
+               }}>
+              This is a digital gold gift card. The amount on the card is measured in grams, and upon redemption, you will receive a digital gold balance that can be used to claim physical gold or withdrawn to your personal wallet.
+            </p>
+          </div>
+        </div>
+
+        {/* Partner Logos */}
+        <div className="flex items-center justify-center gap-4 mb-10">
+          <p className="text-[9px] text-[#453113] leading-tight">
+            Working hand-in-hand with high-quality partners,<br />
+            we provide safe and reliable gold exchange services.
+          </p>
+          <div className="flex gap-2">
+            <Image
+              src="/images/tether-gold-logo.png"
+              alt="Tether Gold"
+              width={60}
+              height={19}
+              className="object-contain opacity-80"
+            />
+            <Image
+              src="/images/tether-gold-logo.png"
+              alt="Tether Gold"
+              width={60}
+              height={19}
+              className="object-contain opacity-80"
+            />
+          </div>
+        </div>
+
+        {/* FAQ Section with Toggle */}
+        <h2 className="text-center text-[22px] font-semibold mb-4"
+            style={{
+              background: 'linear-gradient(165.1deg, #FFF3C5 23.3%, #F7D377 44.1%, #DCAB46 54.1%, #D2822F 75.6%, #6B3D15 86.5%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              textShadow: '7px 7px 10.7px #2c1202'
+            }}>
+          FAQ
+        </h2>
+
+        <div className="rounded-2xl overflow-hidden mb-8"
+             style={{
+               background: 'linear-gradient(138.1deg, rgba(217,159,63,0.2) 24%, rgba(98,49,0,0.2) 55.9%, rgba(28,14,0,0.2) 89.9%)',
+               backdropFilter: 'blur(32px)'
+             }}>
+          {FAQ_ITEMS.map((item, index) => (
+            <div
+              key={item.id}
+              className={`border-b border-[#E3B655]/20 last:border-b-0 ${openFaqId === item.id ? 'p-5' : 'px-5 py-4'}`}
+            >
+              <button
+                className="w-full flex items-center justify-between"
+                onClick={() => toggleFaq(item.id)}
+              >
+                <h3 className="text-[18px] font-semibold text-left pr-4"
+                    style={{
+                      background: 'linear-gradient(155.9deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      textShadow: '8px 8px 12px #2c1202'
+                    }}>
+                  {item.question}
+                </h3>
+                <svg
+                  className="w-6 h-6 text-[#F7D377] flex-shrink-0 transition-transform duration-300"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  {openFaqId === item.id ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                  )}
+                </svg>
+              </button>
+              {openFaqId === item.id && (
+                <p className="text-[16px] leading-relaxed mt-3"
+                   style={{
+                     background: 'linear-gradient(109.5deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
+                     WebkitBackgroundClip: 'text',
+                     WebkitTextFillColor: 'transparent',
+                     textShadow: '8px 8px 12px #2c1202'
+                   }}>
+                  {item.answer}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Terms Section */}
+        <div className="rounded-2xl p-5 mb-6"
+             style={{
+               background: 'linear-gradient(165.2deg, rgba(217,159,63,0.2) 16.8%, rgba(98,49,0,0.2) 39.7%, rgba(6,6,6,0.2) 67.5%)',
+               backdropFilter: 'blur(32px)'
+             }}>
+          <p className="text-[12px] text-[#F1CB60]/50 mb-4">
+            By using the GoldFin gift card redemption service, you agree to the following terms and conditions:
+          </p>
+          <ul className="space-y-3">
+            {[
+              'The gift card becomes effective immediately upon activation, and the physical card becomes invalid and cannot be canceled or refunded.',
+              'All redemptions are subject to platform confirmation; the confirmation time will vary depending on the circumstances.',
+              'The final specifications and quantity of gold delivered will be subject to the actual inventory of the store. GoldFin reserves the right of final interpretation.',
+              'Users are responsible for safeguarding their account information and redemption QR code. GoldFin will not be liable for any losses caused by the user\'s personal reasons.',
+              'GoldFin reserves the right to modify these terms of service at any time.'
+            ].map((term, i) => (
+              <li key={i} className="flex gap-2 text-[9px] text-[#F1CB60]/50">
+                <span className="flex-shrink-0 w-1 h-1 rounded-full bg-[#F1CB60]/50 mt-1" />
+                {term}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Footer */}
+        <div className="text-center">
+          <p className="text-[9px] text-[#453113]">
+            © 2026 GoldFin. All rights reserved. | Services available only in Hong Kong.
+          </p>
         </div>
       </main>
-
-      {/* Floating WhatsApp FAB */}
-      <a
-        href="https://wa.me/85212345678"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 w-14 h-14 sm:w-16 sm:h-16 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg hover:shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 z-50 group"
-        aria-label="聯絡 WhatsApp 客服"
-      >
-        <svg className="w-7 h-7 sm:w-8 sm:h-8" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-        </svg>
-        <span className="absolute bottom-full right-0 mb-2 px-3 py-1.5 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-          需要協助？
-        </span>
-      </a>
     </div>
   );
 }
