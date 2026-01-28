@@ -73,26 +73,37 @@ export default function ScanLandingPage() {
       <div className="relative h-[278px] overflow-hidden">
         {/* Gradient Background */}
         <div className="absolute inset-0 bg-[#060606]">
-          {/* Golden Ellipse Background Image */}
-          <div className="absolute -left-[300px] -top-[150px] w-[900px] h-[800px] opacity-80">
-            <img
-              src="https://www.figma.com/api/mcp/asset/0103067d-e3dc-452c-a304-f194fb8759a3"
-              alt=""
-              className="w-full h-full object-cover"
-            />
-          </div>
-          {/* Texture overlay */}
-          <div className="absolute inset-0 opacity-30 mix-blend-overlay"
-               style={{
-                 backgroundImage: `url("https://www.figma.com/api/mcp/asset/4db0399c-c7b9-40fa-9dc6-a46b7f809e3c")`,
-                 backgroundSize: '1024px 1024px'
-               }} />
-          {/* Noise texture */}
-          <div className="absolute inset-0 opacity-20"
-               style={{
-                 backgroundImage: `url("https://www.figma.com/api/mcp/asset/14aa6303-491d-40da-a95f-6428b38c845d")`,
-                 backgroundSize: '400px 400px'
-               }} />
+          {/* Golden Ellipse - CSS Gradient Replacement */}
+          <div 
+            className="absolute -left-[300px] -top-[150px] w-[900px] h-[800px] opacity-80"
+            style={{
+              background: 'radial-gradient(ellipse at center, rgba(216, 159, 63, 0.4) 0%, rgba(210, 130, 47, 0.2) 30%, rgba(98, 49, 0, 0.1) 60%, transparent 80%)',
+              filter: 'blur(60px)'
+            }}
+          />
+          {/* Subtle golden glow spots */}
+          <div 
+            className="absolute left-[10%] top-[20%] w-[400px] h-[400px] opacity-40"
+            style={{
+              background: 'radial-gradient(circle, rgba(247, 211, 119, 0.3) 0%, transparent 70%)',
+              filter: 'blur(40px)'
+            }}
+          />
+          <div 
+            className="absolute right-[5%] top-[30%] w-[300px] h-[300px] opacity-30"
+            style={{
+              background: 'radial-gradient(circle, rgba(220, 171, 70, 0.25) 0%, transparent 70%)',
+              filter: 'blur(50px)'
+            }}
+          />
+          {/* Texture overlay - CSS Pattern Replacement */}
+          <div 
+            className="absolute inset-0 opacity-10 mix-blend-overlay"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+              backgroundSize: '400px 400px'
+            }}
+          />
           {/* Bottom blur for fade effect */}
           <div className="absolute -bottom-32 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-black blur-[54px]" />
         </div>
@@ -199,13 +210,17 @@ export default function ScanLandingPage() {
                  backdropFilter: 'blur(32px)'
                }}>
             {/* Vertical Line */}
-            <div className="absolute left-[33px] top-[55px] w-[1px] h-[230px] bg-gradient-to-b from-[#F7D377]/50 via-[#DCAB46]/30 to-transparent" />
+            <div className="absolute left-[34px] top-[55px] w-[1px] h-[230px] bg-gradient-to-b from-[#F7D377]/50 via-[#DCAB46]/30 to-transparent" />
 
             {/* Step 1 */}
             <div className="flex gap-4 mb-8">
               <div className="relative flex-shrink-0">
-                <div className="w-6 h-6 rounded-full bg-[#F7D377] flex items-center justify-center">
-                  <span className="text-[#271102] text-[12px] font-bold">01</span>
+                <div className="w-[26px] h-[26px] rounded-full flex items-center justify-center"
+                     style={{
+                       background: 'linear-gradient(135deg, #F7D377 0%, #DCAB46 50%, #D2822F 100%)',
+                       boxShadow: '0 2px 8px rgba(210, 130, 47, 0.4)'
+                     }}>
+                  <span className="text-[#271102] text-[11px] font-bold">01</span>
                 </div>
               </div>
               <div>
@@ -225,7 +240,7 @@ export default function ScanLandingPage() {
                      WebkitTextFillColor: 'transparent',
                      textShadow: '8px 8px 12px #2c1202'
                    }}>
-                  Click &quot;Confirm Gift Card,&quot; enter the &quot;redemption code&quot; on the back of the card to claim your digital GoldFin account.
+                  Click &quot;Bind Gift Card,&quot; enter the &quot;redemption code&quot; on the back of the card to claim your digital GoldFin account.
                 </p>
               </div>
             </div>
@@ -233,8 +248,12 @@ export default function ScanLandingPage() {
             {/* Step 2 */}
             <div className="flex gap-4 mb-8">
               <div className="relative flex-shrink-0">
-                <div className="w-6 h-6 rounded-full bg-[#F7D377] flex items-center justify-center">
-                  <span className="text-[#271102] text-[12px] font-bold">02</span>
+                <div className="w-[26px] h-[26px] rounded-full flex items-center justify-center"
+                     style={{
+                       background: 'linear-gradient(135deg, #F7D377 0%, #DCAB46 50%, #D2822F 100%)',
+                       boxShadow: '0 2px 8px rgba(210, 130, 47, 0.4)'
+                     }}>
+                  <span className="text-[#271102] text-[11px] font-bold">02</span>
                 </div>
               </div>
               <div>
@@ -254,7 +273,7 @@ export default function ScanLandingPage() {
                      WebkitTextFillColor: 'transparent',
                      textShadow: '8px 8px 12px #2c1202'
                    }}>
-                  Click &quot;Confirm Gift Card,&quot; enter the &quot;redemption code&quot; on the back of the card to claim your digital GoldFin account.
+                  Visit the &quot;Redeem&quot; page to schedule pickup of physical gold bars at our partner locations (100g minimum).
                 </p>
               </div>
             </div>
@@ -262,8 +281,12 @@ export default function ScanLandingPage() {
             {/* Step 3 */}
             <div className="flex gap-4">
               <div className="relative flex-shrink-0">
-                <div className="w-6 h-6 rounded-full bg-[#F7D377] flex items-center justify-center">
-                  <span className="text-[#271102] text-[12px] font-bold">03</span>
+                <div className="w-[26px] h-[26px] rounded-full flex items-center justify-center"
+                     style={{
+                       background: 'linear-gradient(135deg, #F7D377 0%, #DCAB46 50%, #D2822F 100%)',
+                       boxShadow: '0 2px 8px rgba(210, 130, 47, 0.4)'
+                     }}>
+                  <span className="text-[#271102] text-[11px] font-bold">03</span>
                 </div>
               </div>
               <div>
@@ -283,7 +306,7 @@ export default function ScanLandingPage() {
                       WebkitTextFillColor: 'transparent',
                       textShadow: '8px 8px 12px #2c1202'
                    }}>
-                  Click &quot;Confirm Gift Card,&quot; enter the &quot;redemption code&quot; on the back of the card to claim your digital GoldFin account.
+                  Withdraw your XAUT tokens to any Ethereum-compatible wallet like MetaMask or convert to USDT.
                 </p>
               </div>
             </div>
