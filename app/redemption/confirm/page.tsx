@@ -22,7 +22,7 @@ function RedemptionConfirmContent() {
 
         const dates = [];
         const today = new Date();
-        let current = new Date(today);
+        const current = new Date(today);
         current.setDate(current.getDate() + 1); // Start checking from tomorrow
 
         while (dates.length < 8) {

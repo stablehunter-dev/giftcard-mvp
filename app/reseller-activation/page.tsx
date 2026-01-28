@@ -303,27 +303,14 @@ export default function ResellerActivationPage() {
                                 </button>
                             </div>
 
-                            <div className="space-y-3">
-                                <div className="bg-white rounded-xl p-4 sm:p-5">
-                                    <div className="flex justify-between items-center">
-                                        <div>
-                                            <div className="text-sm sm:text-base text-gray-600">10克禮品卡</div>
-                                            <div className="text-xs text-gray-400 mt-0.5">購買價格</div>
-                                        </div>
-                                        <div className="text-2xl sm:text-3xl font-bold text-yellow-600">
-                                            {calculatePrice(10)} <span className="text-sm sm:text-base font-normal text-gray-500">USDT</span>
-                                        </div>
+                            <div className="bg-white rounded-xl p-4 sm:p-5">
+                                <div className="flex justify-between items-center">
+                                    <div>
+                                        <div className="text-sm sm:text-base text-gray-600">10克禮品卡</div>
+                                        <div className="text-xs text-gray-400 mt-0.5">購買價格</div>
                                     </div>
-                                </div>
-                                <div className="bg-white rounded-xl p-4 sm:p-5">
-                                    <div className="flex justify-between items-center">
-                                        <div>
-                                            <div className="text-sm sm:text-base text-gray-600">100克禮品卡</div>
-                                            <div className="text-xs text-gray-400 mt-0.5">購買價格</div>
-                                        </div>
-                                        <div className="text-2xl sm:text-3xl font-bold text-yellow-600">
-                                            {calculatePrice(100)} <span className="text-sm sm:text-base font-normal text-gray-500">USDT</span>
-                                        </div>
+                                    <div className="text-2xl sm:text-3xl font-bold text-yellow-600">
+                                        {calculatePrice(10)} <span className="text-sm sm:text-base font-normal text-gray-500">USDT</span>
                                     </div>
                                 </div>
                             </div>
