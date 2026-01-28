@@ -1,47 +1,104 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
-// Dynamic card data - in production, this would come from API or URL params
-const CARD_DATA = {
-  amount: 10,
-  currency: 'XAU₮',
-  usdValue: 2500,
+const copy = {
+  heroTitleLine1: 'Easy Gold',
+  heroTitleLine2: 'Real Value',
+  heroSubtitle: 'Instant redemption, goods or cash.',
+  cardAmount: '10',
+  cardUnit: 'g',
+  valueLine: '10 XAU₮ ≈ 2500 USD',
+  valueSubline: 'Redeem digital gold or physical gold bars after collection.',
+  bindButton: 'Bind Gift Card',
+  stepsTitle: 'Activate gold assets in 3 steps',
+  step1Title: 'Claim your digital gold',
+  step2Title: 'Schedule physical redemption',
+  step3Title: 'Deposit into your wallet',
+  stepBody:
+    'Click "Confirm Gift Card," enter the "redemption code" on the back of the card to claim your digital GoldFin account.',
+  backedByGold: 'Each gram is backed by real gold',
+  infoCardTitle: 'How to determine the value of the gift card?',
+  infoCardBody:
+    'This is a digital gold gift card. The amount on the card is measured in grams, and upon redemption, you will receive a digital gold balance that can be used to claim physical gold or withdrawn to your personal wallet.',
+  partnerLine1: 'Working hand-in-hand with high-quality partners,',
+  partnerLine2: 'we provide safe and reliable gold exchange services.',
+  faqTitle: 'FAQ',
+  faqQuestion1: 'What is TetherGold?',
+  faqAnswer1:
+    'Tether Gold is a digital asset pegged to physical gold, launched in 2020 by Tether, the stablecoin giant. Each XAUT token represents one troy ounce of gold stored in a secure vault in Switzerland.',
+  faqQuestion2: 'Question 2',
+  faqQuestion3: 'Question 3',
+  faqQuestion4: 'Question 4',
+  faqQuestion5: 'Question 5',
+  faqQuestion6: 'Question 6',
+  termsIntro:
+    'By using the GoldFin gift card redemption service, you agree to the following terms and conditions:',
+  terms: [
+    'The gift card becomes effective immediately upon activation, and the physical card becomes invalid and cannot be canceled or refunded.',
+    'All redemptions are subject to platform confirmation; the confirmation time will vary depending on the circumstances.',
+    'The final specifications and quantity of gold delivered will be subject to the actual inventory of the store. GoldFin reserves the right of final interpretation.',
+    "Users are responsible for safeguarding their account information and redemption QR code. GoldFin will not be liable for any losses caused by the user's personal reasons.",
+    'GoldFin reserves the right to modify these terms of service at any time.',
+  ],
+  footer:
+    '© 2026 GoldFin. All rights reserved. | Services available only in Hong Kong.',
 };
 
-const FAQ_ITEMS = [
-  {
-    id: 1,
-    question: 'What is TetherGold?',
-    answer: 'Tether Gold is a digital asset pegged to physical gold, launched in 2020 by Tether, the stablecoin giant. Each XAUT token represents one troy ounce of gold stored in a secure vault in Switzerland.',
-  },
-  {
-    id: 2,
-    question: 'How do I redeem my gift card?',
-    answer: 'Click "Bind Gift Card", enter the redemption code on the back of your card, and the gold value will be instantly credited to your GoldFin account.',
-  },
-  {
-    id: 3,
-    question: 'Can I withdraw physical gold?',
-    answer: 'Yes, you can schedule a physical gold redemption at our partner locations. The minimum withdrawal amount is 100g.',
-  },
-  {
-    id: 4,
-    question: 'Is my gold secure?',
-    answer: 'Absolutely. All gold is backed by Tether Gold (XAUT) tokens, which represent physical gold stored in Swiss vaults with regular third-party audits.',
-  },
-  {
-    id: 5,
-    question: 'What fees are involved?',
-    answer: 'Gift card activation is free. Physical redemption has a small handling fee. Converting XAUT to USDT uses decentralized exchanges with standard network fees.',
-  },
-  {
-    id: 6,
-    question: 'How long is the gift card valid?',
-    answer: 'GoldFin gift cards do not expire. However, once activated, the physical card becomes invalid for security reasons.',
-  },
+const imgTexture =
+  'https://www.figma.com/api/mcp/asset/fd76d626-6fbf-4be1-838e-9eae61d02dd2';
+const imgNoiseTexture =
+  'https://www.figma.com/api/mcp/asset/a895a69a-0b34-4566-9b9b-34ece0568797';
+const imgWallet =
+  'https://www.figma.com/api/mcp/asset/728f921a-79ba-4254-badc-755dae381c36';
+const imgHeartSparkles =
+  'https://www.figma.com/api/mcp/asset/bcf8812e-ee57-407b-9c81-d8d0b2f1fc25';
+const imgEllipseGroup =
+  'https://www.figma.com/api/mcp/asset/90554839-0351-4d2a-bbec-357b40d497e7';
+const imgLine101 =
+  'https://www.figma.com/api/mcp/asset/bdcee368-17a8-43ee-86ff-a6a3d9a4d067';
+const imgGroupStep =
+  'https://www.figma.com/api/mcp/asset/1734d2d7-c7cd-4430-a35a-04155733ebb2';
+const imgTetherGoldLogo =
+  'https://www.figma.com/api/mcp/asset/921c3e1b-9d5e-45d1-902b-03bb552a473e';
+const imgTetherGoldLogoCard =
+  'https://www.figma.com/api/mcp/asset/882f18aa-e815-4590-a561-f6ca3f5a21c3';
+const imgEllipseBullet =
+  'https://www.figma.com/api/mcp/asset/acd270f4-1214-42af-947f-ea486ce3bd44';
+
+const gradientHeroTitle =
+  'linear-gradient(100.26deg, #FFF3C5 -1.9%, #F7D377 33.86%, #DCAB46 51.07%, #D2822F 87.99%)';
+const gradientHeroSubtitle =
+  'linear-gradient(100.26deg, #FFF3C5 -1.9%, #F7D377 33.86%, #DCAB46 51.07%, #D2822F 87.99%, #6B3D15 106.77%)';
+const gradientGoldWide =
+  'linear-gradient(161.04358767367538deg, rgb(255, 243, 197) 1.8958%, rgb(247, 211, 119) 33.863%, rgb(220, 171, 70) 51.07%, rgb(210, 130, 47) 87.987%, rgb(107, 61, 21) 106.77%)';
+const gradientGoldFaq =
+  'linear-gradient(165.06751199882558deg, rgb(255, 243, 197) 23.253%, rgb(247, 211, 119) 44.07%, rgb(220, 171, 70) 54.087%, rgb(210, 130, 47) 75.579%, rgb(107, 61, 21) 86.511%)';
+const gradientStepsText =
+  'linear-gradient(113.08709287374843deg, rgb(255, 243, 197) 1.8958%, rgb(247, 211, 119) 33.863%, rgb(220, 171, 70) 51.07%, rgb(210, 130, 47) 87.987%, rgb(107, 61, 21) 106.77%)';
+const gradientInfoTitle =
+  'linear-gradient(126.21736127847876deg, rgb(255, 243, 197) 1.8958%, rgb(247, 211, 119) 33.863%, rgb(220, 171, 70) 51.07%, rgb(210, 130, 47) 87.987%, rgb(107, 61, 21) 106.77%)';
+const gradientInfoBody =
+  'linear-gradient(108.72119018582683deg, rgb(255, 243, 197) 1.8958%, rgb(247, 211, 119) 33.863%, rgb(220, 171, 70) 51.07%, rgb(210, 130, 47) 87.987%, rgb(107, 61, 21) 106.77%)';
+const gradientFaqOpen =
+  'linear-gradient(155.86173152454887deg, rgb(255, 243, 197) 1.8958%, rgb(247, 211, 119) 33.863%, rgb(220, 171, 70) 51.07%, rgb(210, 130, 47) 87.987%, rgb(107, 61, 21) 106.77%)';
+const gradientFaqClosed =
+  'linear-gradient(160.3100503733612deg, rgb(255, 243, 197) 1.8958%, rgb(247, 211, 119) 11.687%, rgb(220, 171, 70) 33.106%, rgb(210, 130, 47) 43.032%)';
+const gradientFaqBody =
+  'linear-gradient(109.54915537870974deg, rgb(255, 243, 197) 1.8958%, rgb(247, 211, 119) 33.863%, rgb(220, 171, 70) 51.07%, rgb(210, 130, 47) 87.987%, rgb(107, 61, 21) 106.77%)';
+const gradientValueLine =
+  'linear-gradient(161.33059049519247deg, rgb(255, 243, 197) 1.8958%, rgb(247, 211, 119) 33.863%, rgb(220, 171, 70) 51.07%, rgb(210, 130, 47) 87.987%, rgb(107, 61, 21) 106.77%)';
+const gradientBindText =
+  'linear-gradient(137.68400414392175deg, rgb(255, 243, 197) 1.9104%, rgb(247, 211, 119) 40.034%, rgb(220, 171, 70) 60.218%, rgb(210, 130, 47) 103.52%, rgb(107, 61, 21) 125.55%)';
+
+const faqItems = [
+  { id: 1, question: copy.faqQuestion1, answer: copy.faqAnswer1 },
+  { id: 2, question: copy.faqQuestion2, answer: '' },
+  { id: 3, question: copy.faqQuestion3, answer: '' },
+  { id: 4, question: copy.faqQuestion4, answer: '' },
+  { id: 5, question: copy.faqQuestion5, answer: '' },
+  { id: 6, question: copy.faqQuestion6, answer: '' },
 ];
 
 export default function ScanLandingPage() {
@@ -52,461 +109,833 @@ export default function ScanLandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#060606] text-white overflow-x-hidden">
-      {/* Background Layer - Bottom gradient to avoid pure black */}
-      <div className="fixed inset-0 pointer-events-none">
-        {/* Base dark background */}
-        <div className="absolute inset-0 bg-[#060606]" />
-        {/* Top-left glow for hero area */}
-        <div className="absolute -left-[200px] -top-[200px] w-[800px] h-[800px] opacity-40">
-          <div className="w-full h-full rounded-full bg-gradient-to-br from-[#D89F3F]/20 via-[#623100]/10 to-transparent blur-3xl" />
-        </div>
-        {/* Bottom gradient layer */}
-        <div className="absolute bottom-0 left-0 right-0 h-[60%] bg-gradient-to-t from-[#0a0804] via-[#080605] to-transparent" />
-        {/* Subtle noise/texture overlay */}
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-        }} />
-      </div>
-
-      {/* Hero Section */}
-      <div className="relative h-[278px] overflow-hidden">
-        {/* Gradient Background */}
-        <div className="absolute inset-0 bg-[#060606]">
-          {/* Golden Ellipse - CSS Gradient Replacement */}
-          <div 
-            className="absolute -left-[300px] -top-[150px] w-[900px] h-[800px] opacity-80"
+    <div className="min-h-screen bg-[#060606] flex justify-center">
+      <div
+        className="relative"
+        style={{ width: 390, height: 2600, backgroundColor: '#060606' }}
+      >
+        <div
+          className="absolute"
+          style={{
+            left: 0,
+            top: 0,
+            width: 390,
+            height: 278,
+            borderRadius: 10.833,
+            border: '0.271px solid rgba(0,0,0,0.75)',
+            boxShadow: '0px 1.083px 3.792px 0px rgba(0,0,0,0.25)',
+            overflow: 'clip',
+            backgroundColor: '#000000',
+          }}
+        >
+          <div
+            className="absolute"
             style={{
-              background: 'radial-gradient(ellipse at center, rgba(216, 159, 63, 0.4) 0%, rgba(210, 130, 47, 0.2) 30%, rgba(98, 49, 0, 0.1) 60%, transparent 80%)',
-              filter: 'blur(60px)'
+              left: -549.81,
+              top: -275.59,
+              width: 1099.052,
+              height: 995.651,
+            }}
+          >
+            <img
+              alt=""
+              src={imgEllipseGroup}
+              className="block"
+              style={{ width: '100%', height: '100%' }}
+            />
+          </div>
+          <div
+            className="absolute"
+            style={{
+              left: '50%',
+              bottom: -127.33,
+              width: 606.636,
+              height: 205.631,
+              transform: 'translateX(-50%)',
+              backgroundColor: '#000000',
+              filter: 'blur(54.167px)',
             }}
           />
-          {/* Subtle golden glow spots */}
-          <div 
-            className="absolute left-[10%] top-[20%] w-[400px] h-[400px] opacity-40"
+          <div
+            className="absolute"
             style={{
-              background: 'radial-gradient(circle, rgba(247, 211, 119, 0.3) 0%, transparent 70%)',
-              filter: 'blur(40px)'
+              inset: 'calc(-0.03% - 0.27px) calc(-269.24% - 1.73px) calc(-269.2% - 1.73px) calc(0.01% - 0.27px)',
+              backgroundImage: `url('${imgTexture}')`,
+              backgroundPosition: 'top left',
+              backgroundSize: '1024px 1024px',
+              mixBlendMode: 'overlay',
+              opacity: 0.7,
             }}
           />
-          <div 
-            className="absolute right-[5%] top-[30%] w-[300px] h-[300px] opacity-30"
-            style={{
-              background: 'radial-gradient(circle, rgba(220, 171, 70, 0.25) 0%, transparent 70%)',
-              filter: 'blur(50px)'
-            }}
-          />
-          {/* Texture overlay - CSS Pattern Replacement */}
-          <div 
-            className="absolute inset-0 opacity-10 mix-blend-overlay"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-              backgroundSize: '400px 400px'
-            }}
-          />
-          {/* Bottom blur for fade effect */}
-          <div className="absolute -bottom-32 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-black blur-[54px]" />
-        </div>
-
-        {/* Content */}
-        <div className="relative z-10 h-full flex flex-col justify-center px-6 pt-8">
-          <h1 className="text-[46px] font-bold leading-[1.1] tracking-tight mb-3"
+          <div
+            className="absolute"
+            style={{ left: -0.3, top: -0.18, width: 1440, height: 1024, opacity: 0.4 }}
+          >
+            <div
+              aria-hidden="true"
+              className="absolute"
               style={{
-                background: 'linear-gradient(110.6deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                textShadow: '3.8px 3.8px 5.7px rgba(44,18,2,0.8)'
-              }}>
-            Easy Gold<br />Real Value
-          </h1>
-          <p className="text-lg leading-relaxed"
-             style={{
-               background: 'linear-gradient(161deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
-               WebkitBackgroundClip: 'text',
-               WebkitTextFillColor: 'transparent',
-               textShadow: '3.8px 3.8px 5.7px #2c1202'
-             }}>
-            Instant redemption, goods or cash.
-          </p>
+                inset: 0,
+                backgroundImage: `url('${imgNoiseTexture}')`,
+                backgroundPosition: 'top left',
+                backgroundSize: '1738.35546875px 1738.35546875px',
+                opacity: 0.08,
+                pointerEvents: 'none',
+              }}
+            />
+          </div>
+          <div
+            className="absolute"
+            style={{
+              left: 'calc(50% - 212px / 2 - 49px)',
+              top: 88,
+              width: 212,
+              height: 102,
+              fontFamily: 'Bentley, sans-serif',
+              fontWeight: 600,
+              fontSize: 46,
+              lineHeight: '110%',
+              display: 'flex',
+              alignItems: 'center',
+              textShadow: '3.80338px 3.8049px 5.68158px rgba(44, 18, 2, 0.8)',
+              backgroundImage: gradientHeroTitle,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            <div>
+              <p className="m-0 whitespace-pre-wrap">{copy.heroTitleLine1}</p>
+              <p className="m-0 whitespace-pre-wrap">{copy.heroTitleLine2}</p>
+            </div>
+          </div>
+          <div
+            className="absolute"
+            style={{
+              left: 'calc(50% - 289px / 2 - 11.5px)',
+              top: 200,
+              width: 289,
+              height: 18,
+              fontFamily: 'Bentley, sans-serif',
+              fontWeight: 400,
+              fontSize: 18,
+              lineHeight: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              textShadow: '3.80338px 3.8049px 5.68158px #2C1202',
+              backgroundImage: gradientHeroSubtitle,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            <p className="m-0 whitespace-pre-wrap">{copy.heroSubtitle}</p>
+          </div>
         </div>
-      </div>
 
-      {/* Main Content */}
-      <main className="relative z-10 px-4 pb-8">
-        {/* Gold Card Display */}
-        <div className="flex justify-center mb-6">
-          <div className="relative w-full max-w-[354px] h-[224px] rounded-2xl overflow-hidden shadow-[3px_3px_10px_rgba(44,18,2,0.6)]"
-               style={{
-                 background: 'linear-gradient(97.4deg, #D2822F 25.7%, #DAA543 31.3%, #F7D377 81.8%)'
-               }}>
-            {/* Tether Gold Logo - Bottom Right */}
-            <div className="absolute bottom-5 right-5">
-              <Image
-                src="/images/tether-gold-logo.png"
-                alt="Tether Gold"
-                width={100}
-                height={32}
-                className="object-contain"
+        <div
+          className="absolute"
+          style={{ left: 18, top: 278, width: 354, height: 224 }}
+        >
+          <div
+            className="absolute"
+            style={{
+              left: 0,
+              top: 0,
+              width: 354,
+              height: 224,
+              borderRadius: 16,
+              overflow: 'clip',
+              boxShadow: '3.17px 3.17px 10.2px 0px rgba(44,18,2,0.6)',
+            }}
+          >
+            <div
+              className="absolute"
+              style={{
+                inset: 0,
+                borderRadius: 16,
+                backgroundImage:
+                  'linear-gradient(94.72deg, #D2822F -25.7%, #DAA543 31.27%, #F7D377 81.84%)',
+                transform: 'rotate(180deg)',
+                transformOrigin: 'center',
+              }}
+            />
+            <div
+              className="absolute"
+              style={{ right: 20.01, bottom: 20.33, width: 100.493, height: 31.541 }}
+            >
+              <img
+                alt=""
+                src={imgTetherGoldLogoCard}
+                className="block"
+                style={{ width: '100%', height: '100%' }}
               />
             </div>
-            {/* Card Value - Top Right */}
-            <div className="absolute top-5 right-5 text-[#7B4612] font-bold">
-              <span className="text-[28px]">{CARD_DATA.amount}</span>
-              <span className="text-[13px] ml-1">g</span>
-            </div>
+          </div>
+        </div>
+        <div
+          className="absolute"
+          style={{
+            left: 314.58,
+            top: 312.6,
+            transform: 'translateY(-50%)',
+            width: 28,
+            height: 27.073,
+            fontFamily: 'Douyin Sans, sans-serif',
+            fontWeight: 700,
+            fontSize: 27.312,
+            lineHeight: 'normal',
+            color: '#7b4612',
+            zIndex: 2,
+          }}
+        >
+          <p className="m-0 whitespace-pre-wrap">{copy.cardAmount}</p>
+        </div>
+        <div
+          className="absolute"
+          style={{
+            left: 343.64,
+            top: 315.06,
+            transform: 'translateY(-50%)',
+            width: 8,
+            height: 13.035,
+            fontFamily: 'Douyin Sans, sans-serif',
+            fontWeight: 700,
+            fontSize: 12.605,
+            lineHeight: 'normal',
+            color: '#7b4612',
+            zIndex: 2,
+          }}
+        >
+          <p className="m-0 whitespace-pre-wrap">{copy.cardUnit}</p>
+        </div>
+
+        <div className="absolute" style={{ left: 0, top: 0, width: 390, height: 600 }}>
+          <div
+            className="absolute"
+            style={{
+              left: 'calc(50% + 0.5px)',
+              top: 519,
+              transform: 'translate(-50%, -50%)',
+              width: 229,
+              fontFamily: 'Bentley, sans-serif',
+              fontWeight: 600,
+              fontSize: 14,
+              textAlign: 'center',
+              textShadow: '7.179px 7.182px 10.724px #2c1202',
+              backgroundImage: gradientValueLine,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            <p className="m-0 leading-none whitespace-pre-wrap">{copy.valueLine}</p>
+          </div>
+          <div
+            className="absolute"
+            style={{
+              left: 'calc(50% - 125px)',
+              top: 538,
+              transform: 'translateY(-50%)',
+              fontFamily: 'Bentley, sans-serif',
+              fontWeight: 400,
+              fontSize: 10,
+              lineHeight: 1.2,
+              color: '#453113',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            <p className="m-0">{copy.valueSubline}</p>
           </div>
         </div>
 
-        {/* Value Text - Dynamic */}
-        <div className="text-center mb-6">
-          <p className="text-[14px] font-semibold mb-1"
-             style={{
-               background: 'linear-gradient(161.3deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
-               WebkitBackgroundClip: 'text',
-               WebkitTextFillColor: 'transparent',
-               textShadow: '7px 7px 10.7px #2c1202'
-             }}>
-            {CARD_DATA.amount} {CARD_DATA.currency} ≈ {CARD_DATA.usdValue.toLocaleString()} USD
-          </p>
-          <p className="text-[10px] text-[#453113]">
-            Redeem digital gold or physical gold bars after collection.
-          </p>
-        </div>
-
-        {/* Bind Gift Card Button */}
-        <Link href="/activate">
-          <div className="w-full h-[50px] rounded-full flex items-center justify-center mb-10 border border-[#F3CD71]"
-               style={{
-                 background: 'linear-gradient(162.5deg, rgba(217,159,63,0.2) 25%, rgba(98,49,0,0.2) 56%, rgba(28,14,0,0.2) 89%)',
-                 backdropFilter: 'blur(32px)'
-               }}>
-            <span className="text-[18px] font-semibold"
-                  style={{
-                    background: 'linear-gradient(137.7deg, #FFF3C5 1.9%, #F7D377 40%, #DCAB46 60.2%, #D2822F 103.5%, #6B3D15 125.6%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    textShadow: '7px 7px 10.7px #2c1202'
-                  }}>
-              Bind Gift Card
-            </span>
-          </div>
-        </Link>
-
-        {/* 3 Steps Section */}
-        <div className="mb-10">
-          <h2 className="text-center text-[22px] font-semibold mb-6"
+        <div className="absolute" style={{ left: 18, top: 562, width: 354, height: 50 }}>
+          <Link href="/activate" className="block relative w-full h-full">
+            <div
+              className="absolute"
               style={{
-                background: 'linear-gradient(161deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
+                left: 0,
+                top: 0,
+                width: 354,
+                height: 50,
+                borderRadius: 100,
+                border: '1px solid #f3cd71',
+                backdropFilter: 'blur(32px)',
+                backgroundImage:
+                  'linear-gradient(162.53855850645098deg, rgba(217, 159, 63, 0.2) 25.033%, rgba(98, 49, 0, 0.2) 55.797%, rgba(28, 14, 0, 0.2) 88.622%)',
+              }}
+            />
+            <div
+              className="absolute"
+              style={{
+                left: 192.5,
+                top: 25,
+                transform: 'translate(-50%, -50%)',
+                fontFamily: 'Bentley, sans-serif',
+                fontWeight: 600,
+                fontSize: 18,
+                textAlign: 'center',
+                textShadow: '7.179px 7.182px 10.724px #2c1202',
+                backgroundImage: gradientBindText,
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-                textShadow: '7px 7px 10.7px #2c1202'
-              }}>
-            Activate gold assets in 3 steps
-          </h2>
-
-          <div className="rounded-2xl p-5 relative"
-               style={{
-                 background: 'linear-gradient(150.6deg, rgba(217,159,63,0.2) 1.4%, rgba(98,49,0,0.2) 43.7%, rgba(6,6,6,0.2) 82.1%)',
-                 backdropFilter: 'blur(32px)'
-               }}>
-            {/* Vertical Line */}
-            <div className="absolute left-[34px] top-[55px] w-[1px] h-[230px] bg-gradient-to-b from-[#F7D377]/50 via-[#DCAB46]/30 to-transparent" />
-
-            {/* Step 1 */}
-            <div className="flex gap-4 mb-8">
-              <div className="relative flex-shrink-0">
-                <div className="w-[26px] h-[26px] rounded-full flex items-center justify-center"
-                     style={{
-                       background: 'linear-gradient(135deg, #F7D377 0%, #DCAB46 50%, #D2822F 100%)',
-                       boxShadow: '0 2px 8px rgba(210, 130, 47, 0.4)'
-                     }}>
-                  <span className="text-[#271102] text-[11px] font-bold">01</span>
-                </div>
-              </div>
-              <div>
-                <h3 className="text-[18px] font-semibold mb-1"
-                    style={{
-                      background: 'linear-gradient(113.1deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      textShadow: '8px 8px 12px #2c1202'
-                    }}>
-                  Claim your digital gold
-                </h3>
-                <p className="text-[14px] leading-relaxed opacity-80"
-                   style={{
-                     background: 'linear-gradient(113.1deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
-                     WebkitBackgroundClip: 'text',
-                     WebkitTextFillColor: 'transparent',
-                     textShadow: '8px 8px 12px #2c1202'
-                   }}>
-                  Click &quot;Bind Gift Card,&quot; enter the &quot;redemption code&quot; on the back of the card to claim your digital GoldFin account.
-                </p>
-              </div>
-            </div>
-
-            {/* Step 2 */}
-            <div className="flex gap-4 mb-8">
-              <div className="relative flex-shrink-0">
-                <div className="w-[26px] h-[26px] rounded-full flex items-center justify-center"
-                     style={{
-                       background: 'linear-gradient(135deg, #F7D377 0%, #DCAB46 50%, #D2822F 100%)',
-                       boxShadow: '0 2px 8px rgba(210, 130, 47, 0.4)'
-                     }}>
-                  <span className="text-[#271102] text-[11px] font-bold">02</span>
-                </div>
-              </div>
-              <div>
-                <h3 className="text-[18px] font-semibold mb-1"
-                    style={{
-                      background: 'linear-gradient(113.1deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      textShadow: '8px 8px 12px #2c1202'
-                    }}>
-                  Schedule physical redemption
-                </h3>
-                <p className="text-[14px] leading-relaxed opacity-80"
-                   style={{
-                     background: 'linear-gradient(113.1deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
-                     WebkitBackgroundClip: 'text',
-                     WebkitTextFillColor: 'transparent',
-                     textShadow: '8px 8px 12px #2c1202'
-                   }}>
-                  Visit the &quot;Redeem&quot; page to schedule pickup of physical gold bars at our partner locations (100g minimum).
-                </p>
-              </div>
-            </div>
-
-            {/* Step 3 */}
-            <div className="flex gap-4">
-              <div className="relative flex-shrink-0">
-                <div className="w-[26px] h-[26px] rounded-full flex items-center justify-center"
-                     style={{
-                       background: 'linear-gradient(135deg, #F7D377 0%, #DCAB46 50%, #D2822F 100%)',
-                       boxShadow: '0 2px 8px rgba(210, 130, 47, 0.4)'
-                     }}>
-                  <span className="text-[#271102] text-[11px] font-bold">03</span>
-                </div>
-              </div>
-              <div>
-                <h3 className="text-[18px] font-semibold mb-1"
-                    style={{
-                      background: 'linear-gradient(113.1deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      textShadow: '8px 8px 12px #2c1202'
-                    }}>
-                  Deposit into your wallet
-                </h3>
-                <p className="text-[14px] leading-relaxed opacity-80"
-                   style={{
-                     background: 'linear-gradient(113.1deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      textShadow: '8px 8px 12px #2c1202'
-                   }}>
-                  Withdraw your XAUT tokens to any Ethereum-compatible wallet like MetaMask or convert to USDT.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Each gram is backed by real gold */}
-        <h2 className="text-center text-[22px] font-semibold mb-4"
-            style={{
-              background: 'linear-gradient(161deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              textShadow: '7px 7px 10.7px #2c1202'
-            }}>
-          Each gram is backed by real gold
-        </h2>
-
-        {/* Info Cards - Fixed height and margin */}
-        <div className="flex gap-3 mb-6 overflow-x-auto pb-4 snap-x snap-mandatory">
-          {/* Card 1 */}
-          <div className="flex-shrink-0 w-[272px] min-h-[280px] rounded-2xl p-5 border border-[#E3B655] snap-start mb-2"
-               style={{
-                 background: 'linear-gradient(138.1deg, rgba(217,159,63,0.2) 24%, rgba(98,49,0,0.2) 55.9%, rgba(28,14,0,0.2) 89.9%)',
-                 backdropFilter: 'blur(32px)'
-               }}>
-            <div className="w-16 h-16 mb-4 rounded-full bg-gradient-to-br from-[#F7D377]/30 to-[#D2822F]/30 flex items-center justify-center">
-              <svg className="w-8 h-8 text-[#F7D377]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-              </svg>
-            </div>
-            <h3 className="text-[16px] font-semibold mb-3 leading-tight"
-                style={{
-                  background: 'linear-gradient(126.2deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  textShadow: '8px 8px 12px #2c1202'
-                }}>
-              How to determine the value of the gift card?
-            </h3>
-            <p className="text-[14px] leading-relaxed"
-               style={{
-                 background: 'linear-gradient(108.7deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
-                 WebkitBackgroundClip: 'text',
-                 WebkitTextFillColor: 'transparent',
-                 textShadow: '8px 8px 12px #2c1202'
-               }}>
-              This is a digital gold gift card. The amount on the card is measured in grams, and upon redemption, you will receive a digital gold balance that can be used to claim physical gold or withdrawn to your personal wallet.
-            </p>
-          </div>
-
-          {/* Card 2 */}
-          <div className="flex-shrink-0 w-[272px] min-h-[280px] rounded-2xl p-5 snap-start mb-2"
-               style={{
-                 background: 'linear-gradient(138.1deg, rgba(217,159,63,0.2) 24%, rgba(98,49,0,0.2) 55.9%, rgba(28,14,0,0.2) 89.9%)',
-                 backdropFilter: 'blur(32px)'
-               }}>
-            <div className="w-16 h-16 mb-4 rounded-full bg-gradient-to-br from-[#F7D377]/30 to-[#D2822F]/30 flex items-center justify-center">
-              <svg className="w-8 h-8 text-[#F7D377]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
-            </div>
-            <h3 className="text-[16px] font-semibold mb-3 leading-tight"
-                style={{
-                  background: 'linear-gradient(126.2deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  textShadow: '8px 8px 12px #2c1202'
-                }}>
-              How to determine the value of the gift card?
-            </h3>
-            <p className="text-[14px] leading-relaxed"
-               style={{
-                 background: 'linear-gradient(108.7deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
-                 WebkitBackgroundClip: 'text',
-                 WebkitTextFillColor: 'transparent',
-                 textShadow: '8px 8px 12px #2c1202'
-               }}>
-              This is a digital gold gift card. The amount on the card is measured in grams, and upon redemption, you will receive a digital gold balance that can be used to claim physical gold or withdrawn to your personal wallet.
-            </p>
-          </div>
-        </div>
-
-        {/* Partner Logos */}
-        <div className="flex items-center justify-center gap-4 mb-10">
-          <p className="text-[9px] text-[#453113] leading-tight">
-            Working hand-in-hand with high-quality partners,<br />
-            we provide safe and reliable gold exchange services.
-          </p>
-          <div className="flex gap-2">
-            <Image
-              src="/images/tether-gold-logo.png"
-              alt="Tether Gold"
-              width={60}
-              height={19}
-              className="object-contain opacity-80"
-            />
-            <Image
-              src="/images/tether-gold-logo.png"
-              alt="Tether Gold"
-              width={60}
-              height={19}
-              className="object-contain opacity-80"
-            />
-          </div>
-        </div>
-
-        {/* FAQ Section with Toggle */}
-        <h2 className="text-center text-[22px] font-semibold mb-4"
-            style={{
-              background: 'linear-gradient(165.1deg, #FFF3C5 23.3%, #F7D377 44.1%, #DCAB46 54.1%, #D2822F 75.6%, #6B3D15 86.5%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              textShadow: '7px 7px 10.7px #2c1202'
-            }}>
-          FAQ
-        </h2>
-
-        <div className="rounded-2xl overflow-hidden mb-8"
-             style={{
-               background: 'linear-gradient(138.1deg, rgba(217,159,63,0.2) 24%, rgba(98,49,0,0.2) 55.9%, rgba(28,14,0,0.2) 89.9%)',
-               backdropFilter: 'blur(32px)'
-             }}>
-          {FAQ_ITEMS.map((item, index) => (
-            <div
-              key={item.id}
-              className={`border-b border-[#E3B655]/20 last:border-b-0 ${openFaqId === item.id ? 'p-5' : 'px-5 py-4'}`}
+                whiteSpace: 'nowrap',
+              }}
             >
-              <button
-                className="w-full flex items-center justify-between"
-                onClick={() => toggleFaq(item.id)}
+              <p className="m-0 leading-none">{copy.bindButton}</p>
+            </div>
+          </Link>
+        </div>
+
+        <div className="absolute" style={{ left: 18, top: 662, width: 354 }}>
+          <div
+            className="absolute"
+            style={{
+              left: 0,
+              top: 52,
+              width: 354,
+              height: 440,
+              borderRadius: 16,
+              backdropFilter: 'blur(32px)',
+              backgroundImage:
+                'linear-gradient(150.61712957686265deg, rgba(217, 159, 63, 0.2) 1.3658%, rgba(98, 49, 0, 0.2) 43.662%, rgba(6, 6, 6, 0.2) 82.08%)',
+            }}
+          />
+          <div
+            className="absolute"
+            style={{
+              left: 177,
+              top: 11,
+              transform: 'translate(-50%, -50%)',
+              width: 354,
+              fontFamily: 'Bentley, sans-serif',
+              fontWeight: 600,
+              fontSize: 22,
+              textAlign: 'center',
+              textShadow: '7.179px 7.182px 10.724px #2c1202',
+              backgroundImage: gradientGoldWide,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            <p className="m-0 leading-none whitespace-pre-wrap">{copy.stepsTitle}</p>
+          </div>
+
+          <div className="absolute" style={{ left: 32.5, top: 107, width: 0, height: 275 }}>
+            <div style={{ transform: 'rotate(90deg)' }}>
+              <div className="relative" style={{ width: 275, height: 0 }}>
+                <div className="absolute" style={{ inset: '-1px 0 0 0' }}>
+                  <img alt="" src={imgLine101} className="block" style={{ width: '100%', height: '100%' }} />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="absolute" style={{ left: 21, top: 76.9, width: 24, height: 24 }}>
+            <div className="absolute" style={{ inset: '-19% -36.14% -36.14% -19%' }}>
+              <img alt="" src={imgGroupStep} className="block" style={{ width: '100%', height: '100%' }} />
+            </div>
+            <div
+              className="absolute"
+              style={{
+                left: 12.19,
+                top: 12,
+                transform: 'translate(-50%, -50%)',
+                fontFamily: 'Bentley, sans-serif',
+                fontWeight: 700,
+                fontSize: 12,
+                color: '#271102',
+                textAlign: 'center',
+              }}
+            >
+              <p className="m-0 leading-none">01</p>
+            </div>
+          </div>
+
+          <div className="absolute" style={{ left: 21, top: 218.5, width: 24, height: 24 }}>
+            <div className="absolute" style={{ inset: '-19% -36.14% -36.14% -19%' }}>
+              <img alt="" src={imgGroupStep} className="block" style={{ width: '100%', height: '100%' }} />
+            </div>
+            <div
+              className="absolute"
+              style={{
+                left: 11.39,
+                top: 11.9,
+                transform: 'translate(-50%, -50%)',
+                fontFamily: 'Bentley, sans-serif',
+                fontWeight: 700,
+                fontSize: 12,
+                color: '#271102',
+                textAlign: 'center',
+              }}
+            >
+              <p className="m-0 leading-none">02</p>
+            </div>
+          </div>
+
+          <div className="absolute" style={{ left: 21, top: 362.1, width: 24, height: 24 }}>
+            <div className="absolute" style={{ inset: '-19% -36.14% -36.14% -19%' }}>
+              <img alt="" src={imgGroupStep} className="block" style={{ width: '100%', height: '100%' }} />
+            </div>
+            <div
+              className="absolute"
+              style={{
+                left: 11.39,
+                top: 11.84,
+                transform: 'translate(-50%, -50%)',
+                fontFamily: 'Bentley, sans-serif',
+                fontWeight: 700,
+                fontSize: 12,
+                color: '#271102',
+                textAlign: 'center',
+              }}
+            >
+              <p className="m-0 leading-none">03</p>
+            </div>
+          </div>
+
+          <div
+            className="absolute"
+            style={{
+              left: 58,
+              top: 129,
+              transform: 'translateY(-50%)',
+              width: 278,
+              fontFamily: 'Bentley, sans-serif',
+              textShadow: '8.169px 8.173px 12.203px #2c1202',
+              backgroundImage: gradientStepsText,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            <p className="m-0 text-[18px] font-semibold">{copy.step1Title}</p>
+            <p className="m-0 text-[14px] font-light leading-[2]">{copy.stepBody}</p>
+          </div>
+          <div
+            className="absolute"
+            style={{
+              left: 58,
+              top: 272,
+              transform: 'translateY(-50%)',
+              width: 278,
+              fontFamily: 'Bentley, sans-serif',
+              textShadow: '8.169px 8.173px 12.203px #2c1202',
+              backgroundImage: gradientStepsText,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            <p className="m-0 text-[18px] font-semibold">{copy.step2Title}</p>
+            <p className="m-0 text-[14px] font-light leading-[2]">{copy.stepBody}</p>
+          </div>
+          <div
+            className="absolute"
+            style={{
+              left: 58,
+              top: 415,
+              transform: 'translateY(-50%)',
+              width: 278,
+              fontFamily: 'Bentley, sans-serif',
+              textShadow: '8.169px 8.173px 12.203px #2c1202',
+              backgroundImage: gradientStepsText,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            <p className="m-0 text-[18px] font-semibold">{copy.step3Title}</p>
+            <p className="m-0 text-[14px] font-light leading-[2]">{copy.stepBody}</p>
+          </div>
+        </div>
+
+        <div
+          className="absolute"
+          style={{
+            left: 195,
+            top: 1197,
+            transform: 'translate(-50%, -50%)',
+            width: 354,
+            fontFamily: 'Bentley, sans-serif',
+            fontWeight: 600,
+            fontSize: 22,
+            textAlign: 'center',
+            textShadow: '7.179px 7.182px 10.724px #2c1202',
+            backgroundImage: gradientGoldWide,
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            zIndex: 2,
+          }}
+        >
+          <p className="m-0 leading-none whitespace-pre-wrap">{copy.backedByGold}</p>
+        </div>
+
+        <div
+          className="absolute"
+          style={{ left: 0, top: 1238, width: 390, height: 249, overflowX: 'auto', overflowY: 'hidden', zIndex: 1 }}
+        >
+          <div className="relative" style={{ width: 580, height: 249 }}>
+            <div className="absolute" style={{ left: 18, top: 0, width: 272, height: 249 }}>
+              <div
+                className="absolute"
+                style={{
+                  left: 0,
+                  top: 0,
+                  width: 272,
+                  height: 249,
+                  borderRadius: 16,
+                  border: '1px solid #e3b655',
+                  backdropFilter: 'blur(32px)',
+                  backgroundImage:
+                    'linear-gradient(138.10083919168807deg, rgba(217, 159, 63, 0.2) 23.992%, rgba(98, 49, 0, 0.2) 55.873%, rgba(28, 14, 0, 0.2) 89.889%)',
+                }}
+              />
+              <div className="absolute" style={{ left: 9, top: 14, width: 71, height: 71 }}>
+                <img
+                  alt=""
+                  src={imgWallet}
+                  className="absolute"
+                  style={{ inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              </div>
+              <div
+                className="absolute"
+                style={{
+                  left: 84,
+                  top: 52,
+                  transform: 'translateY(-50%)',
+                  width: 170,
+                  fontFamily: 'Bentley, sans-serif',
+                  fontWeight: 600,
+                  fontSize: 16,
+                  lineHeight: 1.3,
+                  textShadow: '8.169px 8.173px 12.203px #2c1202',
+                  backgroundImage: gradientInfoTitle,
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}
               >
-                <h3 className="text-[18px] font-semibold text-left pr-4"
+                <p className="m-0 whitespace-pre-wrap">{copy.infoCardTitle}</p>
+              </div>
+              <div
+                className="absolute"
+                style={{
+                  left: 18,
+                  top: 156,
+                  transform: 'translateY(-50%)',
+                  width: 236,
+                  fontFamily: 'Bentley, sans-serif',
+                  fontWeight: 300,
+                  fontSize: 14,
+                  lineHeight: 1.5,
+                  textShadow: '8.169px 8.173px 12.203px #2c1202',
+                  backgroundImage: gradientInfoBody,
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                <p className="m-0 whitespace-pre-wrap">{copy.infoCardBody}</p>
+              </div>
+            </div>
+
+            <div className="absolute" style={{ left: 308, top: 0, width: 272, height: 249 }}>
+              <div
+                className="absolute"
+                style={{
+                  left: 0,
+                  top: 0,
+                  width: 272,
+                  height: 249,
+                  borderRadius: 16,
+                  backdropFilter: 'blur(32px)',
+                  backgroundImage:
+                    'linear-gradient(138.10083919168807deg, rgba(217, 159, 63, 0.2) 23.992%, rgba(98, 49, 0, 0.2) 55.873%, rgba(28, 14, 0, 0.2) 89.889%)',
+                }}
+              />
+              <div className="absolute" style={{ left: 16.5, top: 18.5, width: 62, height: 62 }}>
+                <img
+                  alt=""
+                  src={imgHeartSparkles}
+                  className="absolute"
+                  style={{ inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              </div>
+              <div
+                className="absolute"
+                style={{
+                  left: 84,
+                  top: 52,
+                  transform: 'translateY(-50%)',
+                  width: 170,
+                  fontFamily: 'Bentley, sans-serif',
+                  fontWeight: 600,
+                  fontSize: 16,
+                  lineHeight: 1.3,
+                  textShadow: '8.169px 8.173px 12.203px #2c1202',
+                  backgroundImage: gradientInfoTitle,
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                <p className="m-0 whitespace-pre-wrap">{copy.infoCardTitle}</p>
+              </div>
+              <div
+                className="absolute"
+                style={{
+                  left: 18,
+                  top: 156,
+                  transform: 'translateY(-50%)',
+                  width: 236,
+                  fontFamily: 'Bentley, sans-serif',
+                  fontWeight: 300,
+                  fontSize: 14,
+                  lineHeight: 1.5,
+                  textShadow: '8.169px 8.173px 12.203px #2c1202',
+                  backgroundImage: gradientInfoBody,
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                <p className="m-0 whitespace-pre-wrap">{copy.infoCardBody}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          className="absolute"
+          style={{
+            left: 18,
+            top: 1520,
+            fontFamily: 'Bentley, sans-serif',
+            fontWeight: 400,
+            fontSize: 9,
+            lineHeight: 1.4,
+            color: '#453113',
+            textShadow: '7.179px 7.182px 10.724px #2c1202',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          <p className="m-0">{copy.partnerLine1}</p>
+          <p className="m-0">{copy.partnerLine2}</p>
+        </div>
+        <div className="absolute" style={{ left: 237, top: 1520.83, width: 60.929, height: 19.124 }}>
+          <img alt="" src={imgTetherGoldLogo} className="block" style={{ width: '100%', height: '100%' }} />
+        </div>
+        <div className="absolute" style={{ left: 314, top: 1521, width: 60.929, height: 19.124 }}>
+          <img alt="" src={imgTetherGoldLogo} className="block" style={{ width: '100%', height: '100%' }} />
+        </div>
+
+        <div
+          className="absolute"
+          style={{
+            left: 195,
+            top: 1604,
+            transform: 'translate(-50%, -50%)',
+            width: 354,
+            fontFamily: 'Bentley, sans-serif',
+            fontWeight: 600,
+            fontSize: 22,
+            textAlign: 'center',
+            textShadow: '7.179px 7.182px 10.724px #2c1202',
+            backgroundImage: gradientGoldFaq,
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+          }}
+        >
+          <p className="m-0 leading-none whitespace-pre-wrap">{copy.faqTitle}</p>
+        </div>
+
+        <div
+          className="absolute"
+          style={{ left: 18, top: 1645, width: 354, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}
+        >
+          {faqItems.map((item) => {
+            const isOpen = openFaqId === item.id;
+            const isFirst = item.id === 1;
+            return (
+              <div key={item.id} className="relative w-full">
+                <button
+                  onClick={() => toggleFaq(item.id)}
+                  className="relative w-full text-left"
+                  style={{
+                    height: isOpen && isFirst ? 238 : 76,
+                    borderRadius: isOpen && isFirst ? 16 : 0,
+                    border: isOpen && isFirst ? '1px solid #e3b655' : 'none',
+                    backdropFilter: isOpen && isFirst ? 'blur(32px)' : 'none',
+                    backgroundImage:
+                      isOpen && isFirst
+                        ? 'linear-gradient(146.61767152747598deg, rgba(217, 159, 63, 0.2) 23.992%, rgba(98, 49, 0, 0.2) 55.873%, rgba(28, 14, 0, 0.2) 89.889%)'
+                        : 'none',
+                    padding: isOpen && isFirst ? 0 : '24px 20px',
+                    display: 'flex',
+                    alignItems: isOpen && isFirst ? 'flex-start' : 'center',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <div
                     style={{
-                      background: 'linear-gradient(155.9deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
+                      position: isOpen && isFirst ? 'absolute' : 'relative',
+                      left: isOpen && isFirst ? 19 : 0,
+                      top: isOpen && isFirst ? 33 : 'auto',
+                      transform: isOpen && isFirst ? 'translateY(-50%)' : 'none',
+                      fontFamily: 'Bentley, sans-serif',
+                      fontWeight: 600,
+                      fontSize: 18,
+                      textShadow: '8.169px 8.173px 12.203px #2c1202',
+                      backgroundImage: isOpen && isFirst ? gradientFaqOpen : gradientFaqClosed,
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
-                      textShadow: '8px 8px 12px #2c1202'
-                    }}>
-                  {item.question}
-                </h3>
-                <svg
-                  className="w-6 h-6 text-[#F7D377] flex-shrink-0 transition-transform duration-300"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  {openFaqId === item.id ? (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
-                  ) : (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                  )}
-                </svg>
-              </button>
-              {openFaqId === item.id && (
-                <p className="text-[16px] leading-relaxed mt-3"
-                   style={{
-                     background: 'linear-gradient(109.5deg, #FFF3C5 1.9%, #F7D377 33.9%, #DCAB46 51.1%, #D2822F 88%, #6B3D15 106.8%)',
-                     WebkitBackgroundClip: 'text',
-                     WebkitTextFillColor: 'transparent',
-                     textShadow: '8px 8px 12px #2c1202'
-                   }}>
-                  {item.answer}
-                </p>
-              )}
-            </div>
-          ))}
+                      minWidth: 240,
+                    }}
+                  >
+                    <p className="m-0 leading-none whitespace-pre-wrap">{item.question}</p>
+                  </div>
+                  <div
+                    style={{
+                      position: isOpen && isFirst ? 'absolute' : 'relative',
+                      right: isOpen && isFirst ? 18 : 0,
+                      top: isOpen && isFirst ? 22 : 'auto',
+                      width: 24,
+                      height: 24,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      {isOpen ? (
+                        <path d="M4 12H20" stroke="#F7D377" strokeWidth="2" />
+                      ) : (
+                        <path d="M12 4V20M4 12H20" stroke="#F7D377" strokeWidth="2" />
+                      )}
+                    </svg>
+                  </div>
+                </button>
+                {isOpen && item.answer && (
+                  <div
+                    className="absolute"
+                    style={{
+                      left: -1,
+                      top: 55,
+                      width: 333,
+                      height: 82,
+                    }}
+                  >
+                    <div
+                      style={{
+                        position: 'absolute',
+                        left: 20,
+                        top: 77,
+                        transform: 'translateY(-50%)',
+                        width: 314,
+                        fontFamily: 'Bentley, sans-serif',
+                        fontWeight: 300,
+                        fontSize: 16,
+                        lineHeight: 2,
+                        textShadow: '8.169px 8.173px 12.203px #2c1202',
+                        backgroundImage: gradientFaqBody,
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                      }}
+                    >
+                      <p className="m-0 whitespace-pre-wrap">{item.answer}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
 
-        {/* Terms Section */}
-        <div className="rounded-2xl p-5 mb-6"
-             style={{
-               background: 'linear-gradient(165.2deg, rgba(217,159,63,0.2) 16.8%, rgba(98,49,0,0.2) 39.7%, rgba(6,6,6,0.2) 67.5%)',
-               backdropFilter: 'blur(32px)'
-             }}>
-          <p className="text-[12px] text-[#F1CB60]/50 mb-4">
-            By using the GoldFin gift card redemption service, you agree to the following terms and conditions:
+        <div
+          className="absolute"
+          style={{ left: 18, top: 2284, width: 354, height: 258, borderRadius: 16 }}
+        >
+          <div
+            className="absolute"
+            style={{
+              left: 0,
+              top: 0,
+              width: 354,
+              height: 258,
+              borderRadius: 16,
+              backdropFilter: 'blur(32px)',
+              backgroundImage:
+                'linear-gradient(165.17998884438606deg, rgba(217, 159, 63, 0.2) 16.786%, rgba(98, 49, 0, 0.2) 39.745%, rgba(6, 6, 6, 0.2) 67.516%)',
+            }}
+          />
+          <p
+            className="absolute"
+            style={{
+              left: 18,
+              top: 18,
+              width: 318,
+              fontFamily: 'Bentley, sans-serif',
+              fontWeight: 400,
+              fontSize: 12,
+              lineHeight: 1.4,
+              color: '#f1cb60',
+              opacity: 0.5,
+            }}
+          >
+            {copy.termsIntro}
           </p>
-          <ul className="space-y-3">
-            {[
-              'The gift card becomes effective immediately upon activation, and the physical card becomes invalid and cannot be canceled or refunded.',
-              'All redemptions are subject to platform confirmation; the confirmation time will vary depending on the circumstances.',
-              'The final specifications and quantity of gold delivered will be subject to the actual inventory of the store. GoldFin reserves the right of final interpretation.',
-              'Users are responsible for safeguarding their account information and redemption QR code. GoldFin will not be liable for any losses caused by the user\'s personal reasons.',
-              'GoldFin reserves the right to modify these terms of service at any time.'
-            ].map((term, i) => (
-              <li key={i} className="flex gap-2 text-[9px] text-[#F1CB60]/50">
-                <span className="flex-shrink-0 w-1 h-1 rounded-full bg-[#F1CB60]/50 mt-1" />
-                {term}
-              </li>
-            ))}
-          </ul>
+          <div
+            className="absolute"
+            style={{
+              left: 30,
+              top: 58,
+              width: 306,
+              fontFamily: 'Bentley, sans-serif',
+              fontWeight: 400,
+              fontSize: 9,
+              lineHeight: 1.8,
+              color: '#f1cb60',
+              opacity: 0.5,
+            }}
+          >
+            <p className="m-0">{copy.terms[0]}</p>
+            <p className="m-0">{copy.terms[1]}</p>
+            <p className="m-0">{copy.terms[2]}</p>
+            <p className="m-0">{copy.terms[3]}</p>
+            <p className="m-0">{copy.terms[4]}</p>
+          </div>
+          <div className="absolute" style={{ left: 20, top: 64, width: 4, height: 4 }}>
+            <img alt="" src={imgEllipseBullet} className="block" style={{ width: '100%', height: '100%' }} />
+          </div>
+          <div className="absolute" style={{ left: 20, top: 96, width: 4, height: 4 }}>
+            <img alt="" src={imgEllipseBullet} className="block" style={{ width: '100%', height: '100%' }} />
+          </div>
+          <div className="absolute" style={{ left: 20, top: 128, width: 4, height: 4 }}>
+            <img alt="" src={imgEllipseBullet} className="block" style={{ width: '100%', height: '100%' }} />
+          </div>
+          <div className="absolute" style={{ left: 20, top: 176, width: 4, height: 4 }}>
+            <img alt="" src={imgEllipseBullet} className="block" style={{ width: '100%', height: '100%' }} />
+          </div>
+          <div className="absolute" style={{ left: 20, top: 224, width: 4, height: 4 }}>
+            <img alt="" src={imgEllipseBullet} className="block" style={{ width: '100%', height: '100%' }} />
+          </div>
         </div>
 
-        {/* Footer */}
-        <div className="text-center">
-          <p className="text-[9px] text-[#453113]">
-            © 2026 GoldFin. All rights reserved. | Services available only in Hong Kong.
-          </p>
+        <div
+          className="absolute"
+          style={{
+            left: '50%',
+            top: 2558.5,
+            transform: 'translate(-50%, -50%)',
+            fontFamily: 'Bentley, sans-serif',
+            fontWeight: 400,
+            fontSize: 9,
+            lineHeight: 1.4,
+            color: '#453113',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          <p className="m-0">{copy.footer}</p>
         </div>
-      </main>
+      </div>
     </div>
   );
 }
