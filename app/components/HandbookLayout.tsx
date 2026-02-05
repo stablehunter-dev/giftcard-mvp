@@ -29,7 +29,7 @@ export default function HandbookLayout({ title, sections, children }: HandbookLa
     <div className="min-h-screen bg-gray-50">
       {/* Top Navigation Bar */}
       <header className="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-sm">
-        <div className="flex items-center justify-between px-4 py-3 max-w-7xl mx-auto">
+        <div className="flex items-center justify-between px-4 py-3 lg:max-w-7xl lg:mx-auto">
           <div className="flex items-center gap-3">
             <button
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -49,7 +49,7 @@ export default function HandbookLayout({ title, sections, children }: HandbookLa
         </div>
       </header>
 
-      <div className="flex max-w-7xl mx-auto">
+      <div className="flex lg:max-w-7xl lg:mx-auto">
         {/* Sidebar Navigation */}
         <aside
           className={`
@@ -99,8 +99,8 @@ export default function HandbookLayout({ title, sections, children }: HandbookLa
         )}
 
         {/* Main Content Area */}
-        <main className="flex-1 px-4 py-8 lg:px-12 lg:py-12 min-h-screen">
-          <div className="max-w-4xl">
+        <main className="flex-1 px-4 py-8 lg:px-12 lg:py-12 min-h-screen w-full">
+          <div className="max-w-4xl lg:mx-0">
             {children}
           </div>
         </main>
