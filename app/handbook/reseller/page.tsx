@@ -93,30 +93,30 @@ export default function ResellerHandbook() {
                         <tbody className="divide-y divide-gray-200">
                             <tr className="hover:bg-gray-50">
                                 <td className="px-6 py-4 text-gray-900">保守</td>
-                                <td className="px-6 py-4 text-gray-900">103%</td>
-                                <td className="px-6 py-4 text-green-600 font-semibold">1%</td>
-                                <td className="px-6 py-4 text-gray-900">33%</td>
+                                <td className="px-6 py-4 text-gray-900">102%</td>
+                                <td className="px-6 py-4 text-green-600 font-semibold">0.5%</td>
+                                <td className="px-6 py-4 text-gray-900">25%</td>
                                 <td className="px-6 py-4 text-gray-600 text-sm">低于市场价，易成交</td>
                             </tr>
                             <tr className="hover:bg-gray-50 bg-green-50">
                                 <td className="px-6 py-4 text-gray-900 font-semibold">平衡 [推荐]</td>
                                 <td className="px-6 py-4 text-gray-900">104%</td>
-                                <td className="px-6 py-4 text-green-600 font-semibold">2%</td>
-                                <td className="px-6 py-4 text-gray-900">50%</td>
+                                <td className="px-6 py-4 text-green-600 font-semibold">2.5%</td>
+                                <td className="px-6 py-4 text-gray-900">63%</td>
                                 <td className="px-6 py-4 text-gray-600 text-sm">平衡收益与竞争力</td>
                             </tr>
                             <tr className="hover:bg-gray-50 bg-amber-50">
                                 <td className="px-6 py-4 text-gray-900 font-semibold">市场价</td>
                                 <td className="px-6 py-4 text-gray-900">105%</td>
-                                <td className="px-6 py-4 text-green-600 font-semibold">3%</td>
-                                <td className="px-6 py-4 text-gray-900">60%</td>
+                                <td className="px-6 py-4 text-green-600 font-semibold">3.5%</td>
+                                <td className="px-6 py-4 text-gray-900">70%</td>
                                 <td className="px-6 py-4 text-gray-600 text-sm">市场标准价</td>
                             </tr>
                             <tr className="hover:bg-gray-50">
                                 <td className="px-6 py-4 text-gray-900">激进</td>
                                 <td className="px-6 py-4 text-gray-900">107%</td>
-                                <td className="px-6 py-4 text-green-600 font-semibold">5%</td>
-                                <td className="px-6 py-4 text-gray-900">71%</td>
+                                <td className="px-6 py-4 text-green-600 font-semibold">5.5%</td>
+                                <td className="px-6 py-4 text-gray-900">79%</td>
                                 <td className="px-6 py-4 text-gray-600 text-sm">高利润，适合高端客户</td>
                             </tr>
                         </tbody>
@@ -126,7 +126,7 @@ export default function ResellerHandbook() {
                 {/* Concise explanation */}
                 <div className="bg-gray-50 rounded-lg p-4 mb-6 border border-gray-200">
                     <p className="text-sm text-gray-700">
-                        <strong>说明：</strong>进货价 = 黄金成本 × 102%（平台收2%服务费）｜可在 102%-110% 自由定价｜收益 = 销售价 - 进货价
+                        <strong>说明：</strong>进货价 = 黄金成本 × 101.5%（平台收1.5%服务费）｜可在 102%-110% 自由定价｜收益 = 销售价 - 进货价
                     </p>
                 </div>
 
